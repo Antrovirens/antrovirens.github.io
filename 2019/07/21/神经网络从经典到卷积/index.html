@@ -139,21 +139,55 @@ dA = E / x = 0.35 / 3 = 0.1167</p>
 <img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/neuron.jpg" alt="神经元">
 </div>
 <p>大脑神经的基本单元是神经元，虽然神经元有着多种形式，神经元都会将电信号从一段传递到另一端，沿着突触，将电信号从树突传递到树突。神经元主要结构可以分为树突和终端。一个神经元接受了电信号，当接受信号超过一定阈值（threshold），神经元被激发后链接电路，产生一个输出信号。</p>
+<p>思考我们如何建模人工神经。生物神经元可以接受很多输出，我们需要将他们加权相加得到总输入，通过内在的阈值函数计算得到输出结果，可以提供信号给更多的神经元。将这种结构复制到人造模型的一种方法是构造多层神经元，如图所示</p>
+<div align="center">
+<img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/neural%20networks1.jpg" alt="neural networks">
+</div>
+<p>每一层的节点都与所有下一层的节点通过一定的权重直接相连，通过调整节点之间的连接强度或阈值函数的形状来进行节点之间的强度调节</p>
 <p>了解了处理结构之后，激活函数引入给我们的模型带入了非线性元素，可以处理更为复杂的问题，实际中较为常用的激活函数主要有三种，Sigmoid, tanh, 和ReLU</p>
 <h4 id="sigmoid"><a class="markdownIt-Anchor" href="#sigmoid"></a> Sigmoid</h4>
+<p>（这里是因为我的Katex公式渲染还有一点问题，还得待调试，下面把python的计算代码贴上来）</p>
+<blockquote>
+<p>y = 1 / (1 + np.exp(-x))</p>
+</blockquote>
 <div align="center">
 <img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/Sigmoid%20Function.png" alt="Sigmoid Fuction">
 </div>
+<p>Sigmoid函数经过激活之后的输出区间为（0，1），输入的数据越大，输出越接近1，否则越接近0。sigmoid函数与生物神经网络的工作机制很类似，在一开始作为激活函数时广泛收到大众认可，但他的缺点也非常明显，他的最大问题在于会导致模型的梯度消失，函数的导数取值区间为0~0.25，在后向传播时，每逆向经过一个节点就要乘以一个sigmoid的导数值，当模型层次达到一定程度时，会导致梯度值越来越小，直到消失。</p>
 <h4 id="tanh"><a class="markdownIt-Anchor" href="#tanh"></a> tanh</h4>
+<blockquote>
+<p>y1 = (np.exp(x) - np.exp(-x)) / (np.exp(x) + np.exp(-x))</p>
+</blockquote>
 <div align="center">
 <img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/Tanh%20Function.png" alt="tanh">
 </div>
+<p>tanh函数的输出结果是中心对称的，解决了激活函数在模型优化中收敛速度变慢的问题，然鹅求导的取值区域为0~1，仍然不够大</p>
 <h4 id="relu"><a class="markdownIt-Anchor" href="#relu"></a> ReLU</h4>
+<blockquote>
+<p>f(x)= max(0,x)</p>
+</blockquote>
 <div align="center">
 <img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/ReLU%20Function.png" alt="ReLU">
 </div>
+<p>ReLU修正线性单元 是现在在深度学习神经网络模型中使用率最高的激活函数，使用它在实际计算中非常高效，收敛速度非常快，但是函数特性可能会导致有一些神经元永远不会被激活，并且这些神经元参数不能被更新。这一般是由于模型参数在初始化的时候采用了全正或者全负的值，或者在后向传播中设置的学习率过高导致的。解决方法有对模型参数使用更高级的初始化方法，比如Xavier，以及合理的后向传播速率，推荐使用自适应的算法比如Adam</p>
 <h3 id="追踪信号"><a class="markdownIt-Anchor" href="#追踪信号"></a> 追踪信号</h3>
-<h3 id="权重传递"><a class="markdownIt-Anchor" href="#权重传递"></a> 权重传递</h3>
+<p>可以用矩阵的陈发表示所有的运算</p>
+<blockquote>
+<p><em>X = W * I</em></p>
+</blockquote>
+<p>W为权重矩阵，以第二层为视界，每一行为第一层的各个节点连接到第二层的某节点的权重序列;I矩阵为输入矩阵，X为组合调节之后的信号</p>
+<blockquote>
+<p><em>O = function(X)</em></p>
+</blockquote>
+<p>O表示着经过激活函数处理后的该层的所有输出</p>
+<p>以一个结构为3x3的，有input、hidden、output层组成的神经网络作为算例，一次结果的输出过程如下：</p>
+<blockquote>
+<p>I : input_data<br>
+<em>X<sub>hidden</sub> = W<sub>input_hidden</sub> · I</em><br>
+<em>O<sub>hidden</sub> = sigmoid(X<sub>hidden</sub>)</em><br>
+<em>X<sub>output</sub> = W<sub>hidden_output</sub> · O<sub>hidden</sub></em><br>
+<em>O<sub>output</sub> = X<sub>output</sub></em></p>
+</blockquote>
 <h3 id="后向传播"><a class="markdownIt-Anchor" href="#后向传播"></a> 后向传播</h3>
 <h3 id="更新权重"><a class="markdownIt-Anchor" href="#更新权重"></a> 更新权重</h3>
 <h2 id="python神经网络编程"><a class="markdownIt-Anchor" href="#python神经网络编程"></a> python神经网络编程</h2>

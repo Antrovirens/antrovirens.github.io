@@ -193,6 +193,12 @@ dA = E / x = 0.35 / 3 = 0.1167</p>
 <h2 id="python神经网络编程"><a class="markdownIt-Anchor" href="#python神经网络编程"></a> python神经网络编程</h2>
 <h2 id="深度学习框架下的神经网络编程"><a class="markdownIt-Anchor" href="#深度学习框架下的神经网络编程"></a> 深度学习框架下的神经网络编程</h2>
 <h3 id="pytorch"><a class="markdownIt-Anchor" href="#pytorch"></a> pytorch</h3>
+<h4 id="pytorch环境配置"><a class="markdownIt-Anchor" href="#pytorch环境配置"></a> Pytorch环境配置</h4>
+<h5 id="env_torch配置"><a class="markdownIt-Anchor" href="#env_torch配置"></a> env_torch配置</h5>
+<p>如果要安装可以在GPU上运行的版本，需要电脑配有NVDIA显卡，并且提前安装CUDA比较先进的版本<br>
+在anaconda的监视器界面中，新建一个包含适合pytorch工程的新环境，命名为env_tf，直接选择复制了tensorflow的环境然后把tf卸载掉<br>
+由于conda指令下载缓慢，选择pip下载，在环境prompt中分别输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pip install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp37-cp37m-win_amd64.whl</span><br><span class="line">pip install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp37-cp37m-win_amd64.whl</span><br><span class="line">```   </span><br><span class="line">由于conda下载速度缓慢，建议使用加速器</span><br><span class="line"><span class="comment">##### jupyter notebook</span></span><br><span class="line">该IDE环境使用较多，可在env_torch内通过下方指令安装，建议连加速器</span><br><span class="line">```bash</span><br><span class="line">conda install jupyter</span><br></pre></td></tr></table></figure>
 <h3 id="tensorflow"><a class="markdownIt-Anchor" href="#tensorflow"></a> tensorflow</h3>
 <h2 id="卷积神经网络"><a class="markdownIt-Anchor" href="#卷积神经网络"></a> 卷积神经网络</h2>
 

@@ -129,7 +129,44 @@ dA = E / x = 0.35 / 3 = 0.1167</p>
 </blockquote>
 <p>选取L = 0.5 作为一个合理的系数，意味着我们只会更新值的一半。</p>
 <p>一个简单的py实现样例代码如下。需要手工用文本写一个输入数据的文件classification cal sample.txt</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">datas = []  <span class="comment">#初始化</span></span><br><span class="line">file_object = open(<span class="string">'classification cal sample.txt'</span>,<span class="string">'r'</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> file_object:</span><br><span class="line">        <span class="comment"># do_somthing_with(line) #line带"\n"</span></span><br><span class="line">        line = line.replace(<span class="string">','</span>,<span class="string">' '</span>).replace(<span class="string">'\n'</span>,<span class="string">''</span>)  <span class="comment">#去除无用字符</span></span><br><span class="line">        num = list(map(float,line.split()))  <span class="comment"># 把空白行分离开，映射到表结构 参见python自带函数map() </span></span><br><span class="line">        datas.append(num) <span class="comment">#后续拓展表</span></span><br><span class="line">        <span class="comment">#print(datas)</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">     file_object.close() <span class="comment">#文件流关闭</span></span><br><span class="line"></span><br><span class="line">plt.figure(num = <span class="number">2019</span>, figsize = (<span class="number">5</span>, <span class="number">5</span>)) <span class="comment">#初始化图形，指定figure的编号并指定figure的大小</span></span><br><span class="line"><span class="keyword">for</span> data <span class="keyword">in</span> datas:</span><br><span class="line">    a = data[<span class="number">0</span>] <span class="comment"># xi</span></span><br><span class="line">    b = data[<span class="number">1</span>] <span class="comment"># yi</span></span><br><span class="line">    k = b / a</span><br><span class="line">    x = np.linspace(<span class="number">0</span>, a, int(<span class="number">50</span> * a))</span><br><span class="line">    y = k * x</span><br><span class="line">    plt.plot(x,y,color = <span class="string">'black'</span>, linewidth = <span class="number">1.0</span>, linestyle = <span class="string">'--'</span>) <span class="comment">#定义线性</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># y = A * x    E = dA * x     dA= L * (E / x)</span></span><br><span class="line">A = <span class="number">0.1</span></span><br><span class="line">L = <span class="number">0.5</span> <span class="comment">#预设的初始值</span></span><br><span class="line"><span class="comment"># 进行简单的拟合  一个可循环的过程</span></span><br><span class="line"><span class="keyword">for</span> data <span class="keyword">in</span> datas:</span><br><span class="line">    E = data[<span class="number">1</span>] - A * data[<span class="number">0</span>] + data[<span class="number">1</span>] / <span class="number">10</span></span><br><span class="line">    dA = L * (E / data[<span class="number">0</span>])</span><br><span class="line">    A = A + dA</span><br><span class="line">    </span><br><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">5</span>, <span class="number">250</span>) <span class="comment">#绘制图形</span></span><br><span class="line">y = A * x</span><br><span class="line">plt.plot(x,y,color = <span class="string">'green'</span>, linewidth = <span class="number">1.0</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="py">import numpy as np
+import matplotlib.pyplot as plt
+
+datas = []  #初始化
+file_object = open('classification cal sample.txt','r')
+try:
+    for line in file_object:
+        # do_somthing_with(line) #line带&quot;\n&quot;
+        line = line.replace(',',' ').replace('\n','')  #去除无用字符
+        num = list(map(float,line.split()))  # 把空白行分离开，映射到表结构 参见python自带函数map() 
+        datas.append(num) #后续拓展表
+        #print(datas)
+finally:
+     file_object.close() #文件流关闭
+
+plt.figure(num = 2019, figsize = (5, 5)) #初始化图形，指定figure的编号并指定figure的大小
+for data in datas:
+    a = data[0] # xi
+    b = data[1] # yi
+    k = b / a
+    x = np.linspace(0, a, int(50 * a))
+    y = k * x
+    plt.plot(x,y,color = 'black', linewidth = 1.0, linestyle = '--') #定义线性
+
+# y = A * x    E = dA * x     dA= L * (E / x)
+A = 0.1
+L = 0.5 #预设的初始值
+# 进行简单的拟合  一个可循环的过程
+for data in datas:
+    E = data[1] - A * data[0] + data[1] / 10
+    dA = L * (E / data[0])
+    A = A + dA
+    
+x = np.linspace(0, 5, 250) #绘制图形
+y = A * x
+plt.plot(x,y,color = 'green', linewidth = 1.0)
+plt.show()
+</code></pre>
 <p>有时候一个分类器不足以解决问题，如果数据本身不是单一线性过程支配，那么一个简单的线性分类器不能对数据进行划分。例如逻辑上的异或问题（如下方图）。这样的问题需要多个线性分类器来共同解决</p>
 <div align="center">
 <img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/Figure_2.png" alt="多个线性分类器解决异或问题">
@@ -198,7 +235,14 @@ dA = E / x = 0.35 / 3 = 0.1167</p>
 <p>如果要安装可以在GPU上运行的版本，需要电脑配有NVDIA显卡，并且提前安装CUDA比较先进的版本<br>
 在anaconda的监视器界面中，新建一个包含适合pytorch工程的新环境，命名为env_tf，直接选择复制了tensorflow的环境然后把tf卸载掉<br>
 由于conda指令下载缓慢，选择pip下载，在环境prompt中分别输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pip install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp37-cp37m-win_amd64.whl</span><br><span class="line">pip install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp37-cp37m-win_amd64.whl</span><br><span class="line">```   </span><br><span class="line">由于conda下载速度缓慢，建议使用加速器</span><br><span class="line"><span class="comment">##### jupyter notebook</span></span><br><span class="line">该IDE环境使用较多，可在env_torch内通过下方指令安装，建议连加速器</span><br><span class="line">```bash</span><br><span class="line">conda install jupyter</span><br></pre></td></tr></table></figure>
+<pre class="highlight"><code class="bash">pip install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp37-cp37m-win_amd64.whl
+pip install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp37-cp37m-win_amd64.whl
+</code></pre>
+<p>由于conda下载速度缓慢，建议使用加速器</p>
+<h5 id="jupyter-notebook"><a class="markdownIt-Anchor" href="#jupyter-notebook"></a> jupyter notebook</h5>
+<p>该IDE环境使用较多，可在env_torch内通过下方指令安装，建议连加速器</p>
+<pre class="highlight"><code class="bash">conda install jupyter
+</code></pre>
 <h3 id="tensorflow"><a class="markdownIt-Anchor" href="#tensorflow"></a> tensorflow</h3>
 <h2 id="卷积神经网络"><a class="markdownIt-Anchor" href="#卷积神经网络"></a> 卷积神经网络</h2>
 
@@ -221,11 +265,11 @@ dA = E / x = 0.35 / 3 = 0.1167</p>
         
     <div id='gitalk-container' class="comment link"
         data-ae='false'
-        data-ci=''
-        data-cs=''
-        data-r=''
+        data-ci='aa8bb51537465fdc96a8'
+        data-cs='42a5b0db726d5fd6dd5baef6f452c419ff2634a4'
+        data-r='antrovirens.github.io'
         data-o='antrovirens'
-        data-a=''
+        data-a='antrovirens'
         data-d='false'
     >查看评论</div>
 

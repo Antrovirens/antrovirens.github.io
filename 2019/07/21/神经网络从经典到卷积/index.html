@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="简体中文" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>神经网络从经典到卷积 - Atrovirens&#39; Café</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Antrovirens,"> 
+    <meta name="description" content="
+
+
+神经网络是一种模拟人脑神经结构的计算机程序结构，以期能够实现人工智能的机器学习技术。本文将介绍神经网络背后的概念，并介绍如何通过编程实现神经网络。
+ 神经网络基础
+机器可以迅速做出大量的算术运,"> 
+    <meta name="author" content="antrovirens"> 
+    <link rel="alternative" href="atom.xml" title="Atrovirens&#39; Café" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Atrovirens&#39; Café</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">神经网络从经典到卷积</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">神经网络从经典到卷积</h1>
+        <div class="stuff">
+            <span>七月 21, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/卷积神经网络/">卷积神经网络</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/神经网络/">神经网络</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <div align="center">
+<img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/cover.jpg" alt="cover">
+</div>
+<p>神经网络是一种模拟人脑神经结构的计算机程序结构，以期能够实现人工智能的机器学习技术。本文将介绍神经网络背后的概念，并介绍如何通过编程实现神经网络。</p>
+<h2 id="神经网络基础"><a class="markdownIt-Anchor" href="#神经网络基础"></a> 神经网络基础</h2>
+<p>机器可以迅速做出大量的算术运算，但是无法处理图像中包含的大量信息。我们怀疑图像识别需要特别的人类智能， 而这是机器所缺乏的，人工智能所讨论的问题正是如此。</p>
+<h3 id="简单的学习器"><a class="markdownIt-Anchor" href="#简单的学习器"></a> 简单的学习器</h3>
+<p>一台基本的机器的工作流程，如下图所示，接受了一个问题并作出相应的思考，得到一个输出结果。</p>
+<div align="center">
+<img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/simple%20learning%20mechane.jpg" alt="简单的学习器" width="300" height="100">
+</div>
+<p>所有有用的计算机系统都应该有一个输入和输出，并在输入和输出之间进行某种类型的计算。我们不能精确知道一些事务如何运行，但我们可以通过模型来估计其运作方式。改进这些模型的方法是通过输出值和真实值之间的比较得到偏移值，进一步调整参数。</p>
+<p>以一个简单的分类器为例子，有二维坐标内有两个点系，聚集在两片区域，先要用一条直线将这两类特征分开，即为通过判断在直线的那一端来对这两类进行分类。</p>
+<p>我们设计一条经过原点的直线 y = A * x 作为我们分类的依据。这条直线应该基于具体的坐标数值特征将两组点分割开来。</p>
+<p>为简化工作，将实例简化为以下的表格。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">实例</th>
+<th style="text-align:center">x坐标</th>
+<th style="text-align:center">y坐标</th>
+<th style="text-align:center">类别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3.0</td>
+<td style="text-align:center">1.0</td>
+<td style="text-align:center">A</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1.0</td>
+<td style="text-align:center">3.0</td>
+<td style="text-align:center">B</td>
+</tr>
+</tbody>
+</table>
+<div align="center">
+<img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/Figure_1.png" alt="线性分类器">
+</div>
+<p>参数A控制着直线的斜率，我们给A赋予一个初值0.25，取x = 3.0, y = 0.75，我们所期望的直线应该经过A类别的上方，比如是1.1的目标值，我们可以利用这个误差来调整A值：</p>
+<blockquote>
+<p>误差值 = 期望目标值 - 实际输出值<br>
+E = 1.1 - 0.75 = 0.35</p>
+</blockquote>
+<p>分类器的线性函数应该修改为 t = (A + dA) * x</p>
+<blockquote>
+<p>E = t - y = (A + dA) * x - A * x = dA * x<br>
+dA = E / x = 0.35 / 3 = 0.1167</p>
+</blockquote>
+<p>这样A的新值化为A + dA =0.3667。 接下来可以接着输入B类的样本，使得A值进一步趋向于使直线略微低于B类点群的下方。但是这样的分类方法最终改进的直线不会顾及开始的训练值，而是仅仅考虑了最近的一组数据，这不是我们想要的结果。</p>
+<p>机器学习中，我们应该进行适度改进（moderate），不应该改进过于激烈，当训练数据本身不能确定为完全正确，包含现实误差和噪声的时候，可以抑制这些影响因素。<br>
+在改进的公式中引入一个调节系数L，也是所谓的学习率（learning rate）</p>
+<blockquote>
+<p>dA = L * (E / x)</p>
+</blockquote>
+<p>选取L = 0.5 作为一个合理的系数，意味着我们只会更新值的一半。</p>
+<p>一个简单的py实现样例代码如下。需要手工用文本写一个输入数据的文件classification cal sample.txt</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">datas = []  <span class="comment">#初始化</span></span><br><span class="line">file_object = open(<span class="string">'classification cal sample.txt'</span>,<span class="string">'r'</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> file_object:</span><br><span class="line">        <span class="comment"># do_somthing_with(line) #line带"\n"</span></span><br><span class="line">        line = line.replace(<span class="string">','</span>,<span class="string">' '</span>).replace(<span class="string">'\n'</span>,<span class="string">''</span>)  <span class="comment">#去除无用字符</span></span><br><span class="line">        num = list(map(float,line.split()))  <span class="comment"># 把空白行分离开，映射到表结构 参见python自带函数map() </span></span><br><span class="line">        datas.append(num) <span class="comment">#后续拓展表</span></span><br><span class="line">        <span class="comment">#print(datas)</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">     file_object.close() <span class="comment">#文件流关闭</span></span><br><span class="line"></span><br><span class="line">plt.figure(num = <span class="number">2019</span>, figsize = (<span class="number">5</span>, <span class="number">5</span>)) <span class="comment">#初始化图形，指定figure的编号并指定figure的大小</span></span><br><span class="line"><span class="keyword">for</span> data <span class="keyword">in</span> datas:</span><br><span class="line">    a = data[<span class="number">0</span>] <span class="comment"># xi</span></span><br><span class="line">    b = data[<span class="number">1</span>] <span class="comment"># yi</span></span><br><span class="line">    k = b / a</span><br><span class="line">    x = np.linspace(<span class="number">0</span>, a, int(<span class="number">50</span> * a))</span><br><span class="line">    y = k * x</span><br><span class="line">    plt.plot(x,y,color = <span class="string">'black'</span>, linewidth = <span class="number">1.0</span>, linestyle = <span class="string">'--'</span>) <span class="comment">#定义线性</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># y = A * x    E = dA * x     dA= L * (E / x)</span></span><br><span class="line">A = <span class="number">0.1</span></span><br><span class="line">L = <span class="number">0.5</span> <span class="comment">#预设的初始值</span></span><br><span class="line"><span class="comment"># 进行简单的拟合  一个可循环的过程</span></span><br><span class="line"><span class="keyword">for</span> data <span class="keyword">in</span> datas:</span><br><span class="line">    E = data[<span class="number">1</span>] - A * data[<span class="number">0</span>] + data[<span class="number">1</span>] / <span class="number">10</span></span><br><span class="line">    dA = L * (E / data[<span class="number">0</span>])</span><br><span class="line">    A = A + dA</span><br><span class="line">    </span><br><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">5</span>, <span class="number">250</span>) <span class="comment">#绘制图形</span></span><br><span class="line">y = A * x</span><br><span class="line">plt.plot(x,y,color = <span class="string">'green'</span>, linewidth = <span class="number">1.0</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>有时候一个分类器不足以解决问题，如果数据本身不是单一线性过程支配，那么一个简单的线性分类器不能对数据进行划分。例如逻辑上的异或问题（如下方图）。这样的问题需要多个线性分类器来共同解决</p>
+<div align="center">
+<img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/Figure_2.png" alt="多个线性分类器解决异或问题">
+</div>
+<h3 id="神经元"><a class="markdownIt-Anchor" href="#神经元"></a> 神经元</h3>
+<div align="center">
+<img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/neuron.jpg" alt="神经元">
+</div>
+<p>大脑神经的基本单元是神经元，虽然神经元有着多种形式，神经元都会将电信号从一段传递到另一端，沿着突触，将电信号从树突传递到树突。神经元主要结构可以分为树突和终端。一个神经元接受了电信号，当接受信号超过一定阈值（threshold），神经元被激发后链接电路，产生一个输出信号。</p>
+<p>了解了处理结构之后，激活函数引入给我们的模型带入了非线性元素，可以处理更为复杂的问题，实际中较为常用的激活函数主要有三种，Sigmoid, tanh, 和ReLU</p>
+<h4 id="sigmoid"><a class="markdownIt-Anchor" href="#sigmoid"></a> Sigmoid</h4>
+<div align="center">
+<img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/Sigmoid%20Function.png" alt="Sigmoid Fuction">
+</div>
+<h4 id="tanh"><a class="markdownIt-Anchor" href="#tanh"></a> tanh</h4>
+<div align="center">
+<img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/Tanh%20Function.png" alt="tanh">
+</div>
+<h4 id="relu"><a class="markdownIt-Anchor" href="#relu"></a> ReLU</h4>
+<div align="center">
+<img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/post/190721/ReLU%20Function.png" alt="ReLU">
+</div>
+<h3 id="追踪信号"><a class="markdownIt-Anchor" href="#追踪信号"></a> 追踪信号</h3>
+<h3 id="权重传递"><a class="markdownIt-Anchor" href="#权重传递"></a> 权重传递</h3>
+<h3 id="后向传播"><a class="markdownIt-Anchor" href="#后向传播"></a> 后向传播</h3>
+<h3 id="更新权重"><a class="markdownIt-Anchor" href="#更新权重"></a> 更新权重</h3>
+<h2 id="python神经网络编程"><a class="markdownIt-Anchor" href="#python神经网络编程"></a> python神经网络编程</h2>
+<h2 id="深度学习框架下的神经网络编程"><a class="markdownIt-Anchor" href="#深度学习框架下的神经网络编程"></a> 深度学习框架下的神经网络编程</h2>
+<h3 id="pytorch"><a class="markdownIt-Anchor" href="#pytorch"></a> pytorch</h3>
+<h3 id="tensorflow"><a class="markdownIt-Anchor" href="#tensorflow"></a> tensorflow</h3>
+<h2 id="卷积神经网络"><a class="markdownIt-Anchor" href="#卷积神经网络"></a> 卷积神经网络</h2>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/DDBY%20-%20%E9%9D%92%E3%81%84%E7%A9%BA%E3%80%81%E7%99%BD%E3%81%84%E9%9B%B2%E3%80%82%E6%B5%81%E3%82%8C%E3%82%8B%E9%A2%A8%E3%81%8C%E5%BF%83%E5%9C%B0%E8%89%AF%E3%81%8F.mp3'></li>
+                    
+                        <li title='1' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/DDBY%20-%20Starry%20Memories.mp3'></li>
+                    
+                        <li title='2' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/DDBY%20-%20Starry%20Memories.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o='antrovirens'
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

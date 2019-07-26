@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-07-25T08:00:03.153Z</updated>
+  <updated>2019-07-26T15:26:01.363Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python Projext: Reload</title>
+    <link href="http://yoursite.com/2019/07/26/Python-Projext-Reload/"/>
+    <id>http://yoursite.com/2019/07/26/Python-Projext-Reload/</id>
+    <published>2019-07-26T12:56:03.000Z</published>
+    <updated>2019-07-26T15:26:01.363Z</updated>
+    
+    <content type="html"><![CDATA[<p>两个计划：</p><ul><li>Windows从源代码编译安装tensorflow-gpu 和 pytorch</li><li>利用wsl安装linux环境的tensorflow-cpu</li></ul><p>win10 python3.7.4环境配置</p><blockquote><p>ps: powershell cd 到的文件夹有空格或者是中文的时候需要用双引号括起来</p></blockquote><p>修改pip下载源到清华源 <a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="noopener">https://pypi.tuna.tsinghua.edu.cn/simple</a></p><p>windows下，直接在user目录中创建一个pip目录，如：C:\Users\xx\pip，新建文件pip.ini</p><p>将文件夹权限设置为完全控制，否则vscode没有权限配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url = https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">[install]</span><br><span class="line">trusted-host=mirrors.aliyun.com</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PS C:\WINDOWS\system32&gt; <span class="built_in">cd</span> C:\\<span class="string">"Program Files"</span>\Python37\Scripts\</span><br><span class="line">PS C:\Program Files\Python37\Scripts&gt; python -m pip install --upgrade pip <span class="comment"># 更新pip</span></span><br></pre></td></tr></table></figure><p>在网页上找到下载对应的代码https://pytorch.org/</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp37-cp37m-win_amd64.whl</span><br><span class="line">pip3 install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp37-cp37m-win_amd64.whl</span><br></pre></td></tr></table></figure><p>配置vscode</p><p>python.linting的配置（PEP8）</p><p>所有的变量名字都要大写，一些空格问题可以alt + shift + F 使用ypaf格式化</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;两个计划：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Windows从源代码编译安装tensorflow-gpu 和 pytorch&lt;/li&gt;
+&lt;li&gt;利用wsl安装linux环境的tensorflow-cpu&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;win10 python3.7.4环境配置&lt;/p&gt;
+      
+    
+    </summary>
+    
+      <category term="环境配置" scheme="http://yoursite.com/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>神经网络从经典到卷积</title>

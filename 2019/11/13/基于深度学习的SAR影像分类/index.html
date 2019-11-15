@@ -131,40 +131,40 @@
 混淆矩阵（Confusion Matrix）主要用于比较分类结果和地表真实信息的差异，可以把分类结果的精度显示在一个混淆矩阵里面。混淆矩阵是通过将每个地表真实像元的位置和分类与分类图象中的相应位置和分类像比较计算的。混淆矩阵的每一列代表了一个地表真实分类，每一列中的数值等于地表真实像元在分类图象中对应于相应类别的数量，有像元数和百分比表示两种。<br>
 可以将结果分为四类： 真正(True Positive, TP)：被模型分类正确的正样本； 假负(False Negative, FN)：被模型分类错误的正样本； 假正(False Positive, FP)：被模型分类错误的负样本； 真负(True Negative, TN)：被模型分类正确的负样本；</p>
 <p>真正率(True Positive Rate, TPR)，又名灵敏度(Sensitivity)：分类正确的正样本个数占整个正样本个数的比例，即：</p>
-<pre><code>**TPR = TP / (TP + FN)**
+<pre><code>TPR = TP / (TP + FN)
 </code></pre>
 <p>假负率(False Negative Rate, FNR)：分类错误的正样本的个数占正样本的个数的比例，即：</p>
-<pre><code>**TNR = FN / (TP + FN)**
+<pre><code>TNR = FN / (TP + FN)
 </code></pre>
 <p>假正率(False Positive Rate, FPR)：分类错误的负样本个数占整个负样本个数的比例，即：</p>
-<pre><code>**FPR = FP / (FP + TN)**
+<pre><code>FPR = FP / (FP + TN)
 </code></pre>
 <p>真负率(True Negative Rate, TNR)：分类正确的负样本的个数占负样本的个数的比例，即：</p>
-<pre><code>**TNR = TN / (FP + TN)**
+<pre><code>TNR = TN / (FP + TN)
 </code></pre>
 <p>准确率(Accuracy)：分类正确的样本个数占所有样本个数的比例，即：</p>
-<pre><code>**ACCURACY = (TP + TN) / (TP + FN + FP + TN)**
+<pre><code>ACCURACY = (TP + TN) / (TP + FN + FP + TN)
 </code></pre>
 <p>平均准确率(Average per-class accuracy)：每个类别下的准确率的算术平均，即：</p>
-<pre><code>**AVERAGE_ACCURACY = (TPR + TNR) / 2**
+<pre><code>AVERAGE_ACCURACY = (TPR + TNR) / 2
 </code></pre>
 <p>精确率(Precision)：分类正确的正样本个数占分类器分成的所有正样本个数的比例（注意：精确率和准确率不同），即：</p>
-<pre><code>**P = TP / (TP + FP)**
+<pre><code>P = TP / (TP + FP)
 </code></pre>
 <p>召回率(Recall)：分类正确的正样本个数占正样本个数的比例，即：</p>
-<pre><code>**R = TP / (TP + FN)**
+<pre><code>R = TP / (TP + FN)
 </code></pre>
 <p>Kappa系数(Kappa coefficient, KC)是另外一种计算分类精度的方法。它是通过把所有地表真实分类中的像元总数（N）乘以混淆矩阵对角线（Xkk）的和，再减去某一类中地表真实像元总数与该类中被分类像元总数之积对所有类别求和的结果，再除以总像元数的平方差减去某一类中地表真实像元总数与该类中被分类像元总数之积对所有类别求和的结果所得到的。kappa的值越高，结果越好</p>
 <p>假设图像的总像素为N，参考图像中未改变的像素数量为Nu，改变的像素的数量为Nc。于是我们将参考图像（ground truth）与用算法产生的变化图像进行逐像素比较。<br>
 则有：</p>
-<pre><code>_Nu=FP+TN
-_Nc=FN+TP
-_OE=FN+FP
-_KC = (PRA−PRE) / (1−PRE)_
+<pre><code>Nu=FP+TN
+Nc=FN+TP
+OE=FN+FP
+KC = (PRA−PRE) / (1−PRE)
 </code></pre>
 <p>其中：</p>
-<pre><code>_PRA = (TP+TN) / N_
-_PRE = ((TP + FP) * Nc + (FN + TN) * Nu) / N2_
+<pre><code>PRA = (TP+TN) / N
+PRE = ((TP + FP) * Nc + (FN + TN) * Nu) / N2
 </code></pre>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->

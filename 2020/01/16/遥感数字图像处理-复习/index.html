@@ -1,0 +1,732 @@
+
+<!DOCTYPE html>
+<html lang="简体中文" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>遥感数字图像处理 复习 - Atrovirens&#39; Café</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Antrovirens,"> 
+    <meta name="description" content="整理者：wangjw yangzx luoxw
+ 第8章 图像分类
+ 遥感图像监督分类方法和非监督分类方法的概念及两者的区别？
+遥感图像的监督分类：在已知类别的训练场地上提取各类别训练样本，通过选择,"> 
+    <meta name="author" content="antrovirens"> 
+    <link rel="alternative" href="atom.xml" title="Atrovirens&#39; Café" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Atrovirens&#39; Café</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">遥感数字图像处理 复习</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">遥感数字图像处理 复习</h1>
+        <div class="stuff">
+            <span>一月 16, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/遥感/">遥感</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p><em>整理者：wangjw yangzx luoxw</em></p>
+<h2 id="第8章-图像分类"><a class="markdownIt-Anchor" href="#第8章-图像分类"></a> 第8章 图像分类</h2>
+<h3 id="遥感图像监督分类方法和非监督分类方法的概念及两者的区别"><a class="markdownIt-Anchor" href="#遥感图像监督分类方法和非监督分类方法的概念及两者的区别"></a> 遥感图像监督分类方法和非监督分类方法的概念及两者的区别？</h3>
+<p>遥感图像的监督分类：在已知类别的训练场地上提取各类别训练样本，通过选择特征变量、确定判别函数或判别式(判别规则)，进而把图像中的各个像元点划归到各个给定类的分类，这种分类方法又称为监督分类法或训练场地法。</p>
+<p>非监督分类：在没有先验类别知识(训练场地)的情况下，根据图像本身的统计特征及自然点群的分布情况，无需事先知道各类地物的类别统计特征，也无需经过学习过程，一般只是提供少数阈值对分类过程加以部分控制来划分地物类别的分类处理，也叫做“边学习边分类法”。</p>
+<p>监督分类需要训练样本，分类结果类别已知， 非监督分类无需训练样本，分类结果类别未知。</p>
+<h3 id="遥感图像分类中描述相似性的统计量有哪些如何判别相似性"><a class="markdownIt-Anchor" href="#遥感图像分类中描述相似性的统计量有哪些如何判别相似性"></a> 遥感图像分类中描述相似性的统计量有哪些，如何判别相似性?</h3>
+<pre><code> 
+像元 i 和像元 j 之间的相关系数
+
+像元 i 和像元 j 之间的相似系数
+
+像元 i 和像元 j 之间的欧几里德距离
+
+像元 i 和像元 j 之间的绝对距离
+
+马氏距离
+
+(1) 当用距离作为类相似度时，距离小，类相似度大；距离大，类相似度小。
+(2) 而用相关系数作为类相似度时，相关系数越大，类相似度越大，反之则小。
+(3) 分类准则要求在给定分类的前提下，使总的离差平方和为最小
+</code></pre>
+<h3 id="动态聚类分类时类的分裂-合并及删除的准则"><a class="markdownIt-Anchor" href="#动态聚类分类时类的分裂-合并及删除的准则"></a> 动态聚类分类时类的分裂、合并及删除的准则</h3>
+<pre><code>分裂条件:
+若已有的类数小于参数(预期的类数)； 
+或者若某一类的像元数大于参数(一类中最大像元数)；
+或者其均方差(标准差)超过了参数(最大标准差)，则该类就要分裂。
+
+合并条件：
+一种是当两类之间的统计距离小于规定的阈值(最小类间距)；
+另一种是当类的数目超过了规定的“最大分类数”；
+ 
+取消
+当某一类中像元数目太少时，该类被取消，并入相邻的类。
+</code></pre>
+<p></p>
+<h3 id="bayes最大似然分类方法判别分类中的两个重要的统计量是什么"><a class="markdownIt-Anchor" href="#bayes最大似然分类方法判别分类中的两个重要的统计量是什么"></a> Bayes（最大似然分类方法）判别分类中的两个重要的统计量是什么？</h3>
+<p>均值向量μg和协方差矩阵Σg</p>
+<p>在Bayes分类中，各类总体的μg和Σg无法确切知道，因而往往由统计学中的参数估计取得μg和Σg 的值。</p>
+<p>即利用各类的训练样本的统计特征来近似地估计各类总体的统计特性。</p>
+<p>对于Bayes线性判别分类其协方差矩阵：</p>
+<h3 id="特征提取与特征选择的概念"><a class="markdownIt-Anchor" href="#特征提取与特征选择的概念"></a> 特征提取与特征选择的概念</h3>
+<pre><code>特征选择是从众多候选特征中按照某些原则挑选出参加运算的特征的过程。
+特征提取是针对特定的工作目的，使用一组算法从图像中计算或提取特征的过程。
+</code></pre>
+<p>特征提取是计算机视觉和图像处理中的一个概念。它指的是使用计算机提取图像信息，决定每个图像的点是否属于一个图像特征。特征提取的结果是把图像上的点分为不同的子集，这些子集往往属于孤立的点、连续的曲线或者连续的区域。特征的好坏对泛化性能有至关重要的影响。</p>
+<p>特征选择</p>
+<p>在特征变量数目较多的情况下，进行分类之前，需从依据地物在光谱、空间等特征空间中的特征，在多维特征变量中进行选择，取得具有良好分类效果的维数较少的几个特征变量，这种处理称为特征变量的选择。<br>
+ <br>
+对于不同类别的模式，特征量值相差较大；而对于同类模式，则应有大体接近或相同的特征值。</p>
+<p>对于某一类模式而言，特征量及特征值应能充分地表明该模式属于该类而不属于其它类别地主要根据。<br>
+各特征量之间互不相关或相关性很小</p>
+<p>遥感图像计算机自动分类项目设计与规划应该明确的主要流程与内容。</p>
+<pre><code>1） 预处理
+确定工作范围；几何校正；噪声处理；辐射校正；几何精校正；多源图像融
+合。
+2） 特征选取
+原则：可分性；可靠性；独立性；数量少；
+方法：光谱特征、纹理特征分析，各种波段变换、波段运算等。
+3） 分类。根据特征与分类对象的实际情况选择适当的分类方法。
+4） 分类后处理。处理分类结果中的不合理元素。
+5） 结果检验（评价）。对分类的精度与可靠性进行评价。
+6） 结果输出 
+</code></pre>
+<h3 id="在遥感图像计算机自动分类处理过程中如何顾及训练样本的选择要求-地形因素影响-混合像元问题-特征变量提取及选择问题-空间信息的应用问题以及图像分类的后期处理问题来提高分类精度"><a class="markdownIt-Anchor" href="#在遥感图像计算机自动分类处理过程中如何顾及训练样本的选择要求-地形因素影响-混合像元问题-特征变量提取及选择问题-空间信息的应用问题以及图像分类的后期处理问题来提高分类精度"></a> 在遥感图像计算机自动分类处理过程中，如何顾及训练样本的选择要求、地形因素影响、混合像元问题、特征变量提取及选择问题、空间信息的应用问题以及图像分类的后期处理问题来提高分类精度？</h3>
+<p>选择有代表性的训练样本，是分类能否取得良好效果地一个关键性问题。<br>
+用于监督分类地训练场地应该是光谱特征比较均一的地区，一般在图像显示中根据均一的色调估计只有一类地物<br>
+一类地物的训练场地可选取一块以上。<br>
+训练样本的数目至少能够满足建立分类用判别函数的要求，每类训练样本至少要有10～100个数据。</p>
+<p>在遥感图像中，地形因素不仅会造成几何畸变，而且还会影响其亮度值。例如，同类地物由于所处山坡位置的不同，其阴坡和阳坡的光谱特性就有很大的差异，即同物异谱；如不同的地物由于地形的影响而具有相同的光谱特性，即同谱异物。</p>
+<p>可以利用图像增强的多波段图像的比值处理来减弱地形的影响，但其比值图像并不能彻底消除地形的影响，而且当地形起伏太大时比值处理受到限制。<br>
+解决地形因素造成的“同物异谱”和“同谱异物”现象的方法：采用“同类多组法”来选取训练样本，在对图像进行分类时，应首先进行分组，然后再根据所属的类别进行合并。</p>
+<p>目前进行混合像元分解的方法主要归纳为两类：<br>
+线性关系分解法，其依据是像元亮度的线性可加性；<br>
+模糊分解法。</p>
+<p>遥感图像分类的原始特征变量就是波段图像的波段变量本身，它们是分类的主要依据<br>
+这些波段图像可经过一些变换（如比值变换、差值处理和K-L变换等）获得一系列新的特征变量，<br>
+加入与图像网格坐标相一致的其它非遥感变量，</p>
+<p>这些变量与原始特征变量组成了一个维数很高的特征变量空间。维数太大，既会增加分类算法的复杂性和计算工作量，又会造成更多的混淆和不确定性。</p>
+<p>因此在特征变量数目较多的情况下，进行分类之前，需从依据地物在光谱、空间等特征空间中的特征，在多维特征变量中进行选择，取得具有良好分类效果的维数较少的几个特征变量，这种处理称为特征变量的选择。</p>
+<pre><code>特征变量选择的总体原则：
+对于不同类别的模式，特征量值相差较大；而对于同类模式，则应有大体接近或相同的特征值。 
+对于某一类模式而言，特征量及特征值应能充分地表明该模式属于该类而不属于其它类别地主要根据。 
+各特征量之间互不相关或相关性很小
+</code></pre>
+<p>遥感图像的灰度是地物电磁波辐射特征反映，灰度值的大小除了与地物成分有关外，还与地物的表面结构以及地形的起伏有关<br>
+为了提高遥感图像的分类精度，必须要考虑图像中的空间信息和地形变化因素。<br>
+多波段遥感图像和空间信息 （纹理信息、高程数据等）的综合分类可以显著地提高遥感图像地分类精度和地物地识别能力。</p>
+<p>分类图像中会出现一大片同类地物中夹杂着散点分布的异类地物的不一致现象，它们在分类图像上表现为噪声。可通过平滑处理来减少或消除类别噪声的影响。<br>
+对分类结果进行误差分析 ，随机抽查检验区以检验分类的精度和可靠性<br>
+当精度较差时，要进行改善：</p>
+<pre><code>  1）重新选择训练样本，使训练样本更具代表性，并使分类类别数更加与实际相符；
+ 2）对判别函数进行评价和选择，并对参加分类的变量或统计量进行选择。
+</code></pre>
+<h3 id="决策树分类的概念与方法"><a class="markdownIt-Anchor" href="#决策树分类的概念与方法"></a> 决策树分类的概念与方法</h3>
+<p>决策树分类：是一个典型的多级分类器，它由一系列二叉决策树构成，用于将像元归属 到相应的类别。每个决策树依据一个表达式将图像中的像元分为两类。每一个新生成的类别 又可以根据其他的表达式继续向下分类。可以根据需要定义决策树的节点，节点数量不受限 制。决策树的结果为不同的类别。可以使用来自不同来源或文件的数据共同生成一个决 策树分类器。也可以交互式地裁剪或编辑决策树，并对生成的决策树进行保存并将它应用于 其他数据集。</p>
+<p>决策树分类的关键：</p>
+<pre><code>1）基于光谱分析、纹理分析、图像变换等方法研究地物在多维空间中的特
+征，提取特征变量，选择特征，利用多个决策规则，建立决策边界，来解决复杂
+的分类问题，属于监督分类。
+2）决策规则必须视明确的、依据图像事先确定，但建立的决策模型往往不
+具备通用性，决策树相关规则和参数往往是依赖与图像。 
+</code></pre>
+<h2 id="第7章-图像滤波"><a class="markdownIt-Anchor" href="#第7章-图像滤波"></a> 第7章 图像滤波</h2>
+<h3 id="图像滤波的主要目的是什么主要有哪些方法"><a class="markdownIt-Anchor" href="#图像滤波的主要目的是什么主要有哪些方法"></a> 图像滤波的主要目的是什么？主要有哪些方法？</h3>
+<pre><code>    图像滤波目的：从图像中提取、突出空间尺度信息，压抑或去除无关的信息。
+</code></pre>
+<p>空间域滤波：计算方法是卷积运算（convolution ).</p>
+<p>频率域滤波：空间域图像f(x,y)通过傅里叶变换为频率域图像F(u,v)，然后选择合适的滤波器H(u,v)对F(u,v)的频谱域图像进行滤波（乘法运算），得到图像G(u,v)，再傅里叶逆变换得到个g(x,y).</p>
+<h3 id="均值滤波与中值滤波的方法及各自的特点异同"><a class="markdownIt-Anchor" href="#均值滤波与中值滤波的方法及各自的特点异同"></a> 均值滤波与中值滤波的方法及各自的特点异同。</h3>
+<p>均值（平滑）滤波是低频增强的空间域滤波技术。它可以滤掉由于孤立的单点噪声而引起的灰度偏差。<br>
+：一般采用简单平均法进行，即求邻近像元点的平均亮度值：</p>
+<p>算法简单 速度快 造成图像模糊 削弱边缘和细节信息  随领域的扩大而程度严重</p>
+<p>中值滤波是将每个像元在以其为中心的邻域内取中间亮度值来代替该像元值，以达到去尖锐“噪声”和平滑图像目的<br>
+部分不变性   削弱随机干扰和脉冲干扰   非线性</p>
+<p>中值滤波的输出与输入噪声的概率密度有关<br>
+中值滤波对于随机噪声的抑制比均值滤波稍微差一点， 对于脉冲干扰的椒盐噪声非常有效</p>
+<h3 id="什么是图像锐化图像锐化有几种方法"><a class="markdownIt-Anchor" href="#什么是图像锐化图像锐化有几种方法"></a> 什么是图像锐化？图像锐化有几种方法？</h3>
+<p>由于图像模糊的实质是图像受到平均或积分运算造成的，所以为了把图像中任何方向伸 展的边缘和模糊的轮廓变得清晰，可以对图像进行逆运算，如微分运算，从而使图像清晰 化，这个过程称为图像锐化。</p>
+<pre><code>线性锐化滤波器
+梯度法
+Prewitt和Sobel梯度
+罗伯特梯度
+拉普拉斯算子
+canny算子
+定向检测
+</code></pre>
+<h3 id="拉普拉斯算子-roberts梯度与sobel梯度的模板滤波核的结构他们对图像滤波的作用"><a class="markdownIt-Anchor" href="#拉普拉斯算子-roberts梯度与sobel梯度的模板滤波核的结构他们对图像滤波的作用"></a> 拉普拉斯算子、Roberts梯度与Sobel梯度的模板（滤波核）的结构？他们对图像滤波的作用？</h3>
+<p>拉普拉斯算子法:<br>
+（1） 边缘增强；<br>
+（2）消除图像上因扩散作用产生的模糊，使图像清晰化。</p>
+<p>罗伯特   在于用交叉的方法检测出像元与其邻域在上下之间或左右之间或斜方向之间的差异，最终产生一个梯度影像，达到提取边缘信息的目的。</p>
+<p>sobel   对边缘的检测更加精确</p>
+<h3 id="定向检测常用的模板有哪些"><a class="markdownIt-Anchor" href="#定向检测常用的模板有哪些"></a> 定向检测常用的模板有哪些？</h3>
+<p>检测垂直边界时</p>
+<p>检测水平边界时：</p>
+<p>检测对角线边界时：</p>
+<h3 id="频率域滤波器有哪些各有何特点"><a class="markdownIt-Anchor" href="#频率域滤波器有哪些各有何特点"></a> 频率域滤波器有哪些？各有何特点？</h3>
+<p>①低通滤波器，用来保留图像中的低频成分，滤除图像中的高频成分。由于噪声多是高频成分，低通滤波应用较多。</p>
+<p>②高通滤波器，与低通滤波器相反，用来保留高频成分（边缘信息）。</p>
+<p>③带通滤波器，用来保留特定频率范围的信息。</p>
+<p>④带阻滤波器，用来阻止特定频率范围的信息。</p>
+<p>⑤自定义滤波器，根据频率域图像中的频率分布，人为定义，应用灵活。</p>
+<h3 id="常用高通低通滤波器"><a class="markdownIt-Anchor" href="#常用高通低通滤波器"></a> 常用高通低通滤波器</h3>
+<p>理想滤波器<br>
+低通  边缘损失 模糊<br>
+高通 边缘抖动</p>
+<p>butterworth滤波器<br>
+低通 连续衰减  边缘模糊程度减低<br>
+高通 锐化效果较好 抖动不明显 计算复杂</p>
+<p>指数滤波器  比butterworth稍微差一些</p>
+<p>梯形滤波器<br>
+低 介于理想和指数之间<br>
+高 计算简单</p>
+<p>高斯滤波器</p>
+<p>同态滤波</p>
+<h2 id="第六章-图像变换-multispectral-transformations-of-image-data"><a class="markdownIt-Anchor" href="#第六章-图像变换-multispectral-transformations-of-image-data"></a> 第六章 图像变换 Multispectral Transformations of Image Data</h2>
+<h3 id="1-傅立叶变换基本概念和作用"><a class="markdownIt-Anchor" href="#1-傅立叶变换基本概念和作用"></a> 1. 傅立叶变换基本概念和作用。</h3>
+<p>傅立叶变换是一种正交变换。它可将傅立叶变换前的空间域中的复杂的卷积运算转化为傅立叶变换后的频率域的简单的乘积运算，同时，它还可以在频率域中简单而有效地实现增强处理和进行特征抽取，故而在图像处理中也得到了广泛的应用。</p>
+<h3 id="2-什么是主成分变换the-principal-components-transformation变换的目的-主成分变换的性质有哪些"><a class="markdownIt-Anchor" href="#2-什么是主成分变换the-principal-components-transformation变换的目的-主成分变换的性质有哪些"></a> 2. 什么是主成分变换(The Principal Components Transformation)？变换的目的。主成分变换的性质有哪些?</h3>
+<p>K-L变换：多维（多波段）正交线性变换。</p>
+<p>遥感图象特点：各波段间有很高的相关性，带来数据的多余和重复。</p>
+<p>主成分变换的概念： 主成分变换是一种正交线性变换， 当T是一个正交矩阵，且由图像X的协方差矩阵S的特征向量组成，则Y=TX为主成分变换。</p>
+<p>变换后的Y矩阵中每一行矢量为K-L变换的一个主成分。</p>
+<p>变换的目的：把原来多波段图像中的有用信息集中到数 量尽可能少的新的主成分图像中，并使各主成分图像间互不相关，压缩了数据，增强了信息。</p>
+<p>K-L变换的性质和特点</p>
+<pre><code>１、Ｋ－Ｌ变换前后方差总和不变，只是不等量的 再分配到 新的主成分图像中。
+２、第一主成分信息量最大，其余各主成分的方差依次减少。       
+３、变换后各主成分间的相关系数为零。（S（Y)为一对角阵）
+4、第一主成分相当于各波段的加权和，反映地物总的反射 强度。其余各主成分相当于不同波段的加权差值图像。
+5、当计算S矩阵的图像是有选择时，此时得到T用于整个 图像的增强了主要的研究对象。
+6、可以通过分组波段K-L变换，各组中选取一个适当的主成分参加假彩色合成，增强研究对象。
+</code></pre>
+<p>3.结合特征向量矩阵和地物的光谱特征，分析各主成分所能增强的信息。</p>
+<pre><code>特征向量      波段 1      波段 2             波段 3         波段 4
+主成分 1     0.284700     0.484969        0.578986        0.590362
+主成分 2   -0.229177    -0.321328      -0.440399     0.806396
+主成分 3    -0.707674   -0.334365      0.622389        0.005551
+主成分 4     -0.604667    0.741454      -0.288888      -0.034167
+</code></pre>
+<p>第一主成分包含了总方差的绝大部分，相当于原来各波段的加权和，从特征<br>
+向量上可以看出来，第一行全为正值。第一主成分降低了噪声，线性特征增强，<br>
+突出了城市人工地物。</p>
+<p>第二主成分对应特征向量第二行，在波段 4 上的权重最大，而波段 4 是近红<br>
+外波段，植被的反射率较大，因此第二主成分图像，植被的亮度增强，能够突出<br>
+植被信息。</p>
+<p>第三主成分在波段三上的权重最大，波段三上，裸土的灰度值较大，因此突<br>
+出裸土信息。</p>
+<p>第四主成分在波段二上权重最大，水体信息高亮显示，但同时噪声增多。</p>
+<h3 id="4-应用主成分变换进行不同分辨率图像的融合的步骤或流程以及应该注意的问题"><a class="markdownIt-Anchor" href="#4-应用主成分变换进行不同分辨率图像的融合的步骤或流程以及应该注意的问题"></a> 4. 应用主成分变换进行不同分辨率图像的融合的步骤或流程以及应该注意的问题。</h3>
+<p>1）将多光谱的多个波段先做主成分变换；<br>
+2）将分辨率为 4m 的图像通过重采样的方法，将其分辨率改为 1m，裁剪使<br>
+其与高分辨率影像的像元数相同，为后边的融合做准备。<br>
+3）将高分辨率全色影像与第一主分量进行直方图匹配,使之与第一主分量有<br>
+相同的均值与方 差；<br>
+4）再将匹配后的高分辨率影像代替第一主分量（与其它各主成分合成为一<br>
+个文件）；<br>
+5）进行主成分逆变换，得到空间分辨率提高的多光谱影像的融合影像。</p>
+<h3 id="5对mss及tm数据缨帽变换后各分量的含义"><a class="markdownIt-Anchor" href="#5对mss及tm数据缨帽变换后各分量的含义"></a> 5.对MSS及TM数据缨帽变换后各分量的含义。</h3>
+<p>缨帽变换是Kauth和Thomas通过分析陆地卫星MSS图像反映农作物和植被生长过程的数据结构后提出的一种经验性的多波段图像的正交线性变换，又称K-T变换.<br>
+MSS:</p>
+<pre><code>亮度分量：主要反映了土壤反射率变化的信息；
+绿度分量：主要反映了地面植物的绿度；
+黄度分量：主要反映了植物的枯萎程度；
+其他：没有实际意义
+</code></pre>
+<p>TM<br>
+K-T变换的物理意义:</p>
+<pre><code>1:亮度分量；2：绿度分量；3：湿度
+</code></pre>
+<h3 id="6-什么是归一化植被指数ndvi从土壤-水体和植被的光谱特征说明为什么ndvi能够突出植被信息"><a class="markdownIt-Anchor" href="#6-什么是归一化植被指数ndvi从土壤-水体和植被的光谱特征说明为什么ndvi能够突出植被信息"></a> 6. 什么是归一化植被指数（NDVI)？从土壤、水体和植被的光谱特征说明为什么NDVI能够突出植被信息？</h3>
+<p>该运算常用于突出遥感影像中的植被特征、提取植被类别或估算植被生物量，这种算法的结果称为植被指数NDVI。</p>
+<pre><code>(近红外—红)／(近红外+红)=NDVI     (NIR-R)/(NIR+R)
+</code></pre>
+<p>对于由绿色植物叶肉组织引起的近红外强反射和由叶绿素引起的红光吸收，使其NIR与R值有较大的差异,  而对于无植被的地面因不显示这种特殊的光谱响应则NDVI值低，色调较深。</p>
+<h3 id="7-图像的比值运算的作用及应注意的问题"><a class="markdownIt-Anchor" href="#7-图像的比值运算的作用及应注意的问题"></a> 7. 图像的比值运算的作用及应注意的问题。</h3>
+<p>两幅同样行、列数的图像，对应像元的亮度值相除(除数不为o)就是比值运算。<br>
+如果比值运算中作为分母的波段值很小，比值运算可能会增加图像的噪声。计算前可以对图像进行滤波处理。</p>
+<h3 id="8-hsi-变换的概念-应用hsi变换进行不同分辨率图像的融合的步骤或流程"><a class="markdownIt-Anchor" href="#8-hsi-变换的概念-应用hsi变换进行不同分辨率图像的融合的步骤或流程"></a> 8. HSI 变换的概念。应用HSI变换进行不同分辨率图像的融合的步骤或流程。</h3>
+<p>HIS变换： RGB空间与HIS空间之间的变换</p>
+<p>色调(颜色的类别，如红、绿、蓝等，记为 H)、<br>
+饱和度(颜色的纯度，亦即浓淡程度，记为 S)<br>
+亮度(人眼感受到的颜色的明亮程度，记为 I)</p>
+<p>亮度Ｉ主要反映地物辐射总的能量及其空间分布，  即表现为几何特征；<br>
+H、S则主要反映地物的光谱信息。</p>
+<p>图像的分辨率取决于I成分，即使H和S的分辨率低，对合成显示的图像也没有什么影响。</p>
+<p>可将具有最高分辨率的图像当作I成分，次高分辨率的图像当作H成分，最低分辩率的图像当作S成分，然后作反变换，求出R，G，B进行合成显示；</p>
+<h2 id="第五章-图像校正"><a class="markdownIt-Anchor" href="#第五章-图像校正"></a> 第五章  图像校正</h2>
+<h3 id="了解辐射传输理论理解传感器获取的电磁辐射的三部分"><a class="markdownIt-Anchor" href="#了解辐射传输理论理解传感器获取的电磁辐射的三部分"></a> 了解辐射传输理论，理解传感器获取的电磁辐射的三部分。</h3>
+<p>辐射传输是指电磁波在受到大气影像的同时在大气中传播的过程。</p>
+<p>三部分：传感器所能接收的太阳光包括三部分——</p>
+<pre><code>太阳光直射到地表后地表的反射辐射、
+被大气散射辐射的太阳光在地表的反射辐射、
+大气的上行散射辐射 
+</code></pre>
+<p>辐射误差（畸变）的概念及引起辐射误差的主要原因。</p>
+<p>影响亮度值两个物理量：太阳辐射照射到地面的辐射强度Irradiance、地物的光谱反射率Reflectence。</p>
+<p>当太阳辐射相同时，图像上像元亮度值的差异直接反映  了地物目标光谱反射率的差异。</p>
+<p>辐射强度值还受到其他因素的影响而发生改变。这一改变的部分就是需要校正的部分，故称为辐射畸变。</p>
+<p>引起辐射畸变原因：<br>
+传感器仪器本身产生的误差、</p>
+<p>1）光学摄影机引起的辐射误差<br>
+光学畸变、镜头中心和边缘透射率不一致<br>
+2）光电扫描仪引起的辐射误差<br>
+光电测量和转换的增益gain 和漂移offset</p>
+<p>大气对辐射的影响以及太阳辐射。大气散射和吸收引起的辐射误差</p>
+<p>散射的影响</p>
+<p>（1）使原传播方向的辐射强度减弱，而增加向其他各方向的辐射。<br>
+（2）增加了信号中的噪声成分，造成遥感图像的质量下降。</p>
+<h3 id="大气散射有哪三种分别说明它们的散射特点-微波为何能够全天候全天时获取数据"><a class="markdownIt-Anchor" href="#大气散射有哪三种分别说明它们的散射特点-微波为何能够全天候全天时获取数据"></a> 大气散射有哪三种？分别说明它们的散射特点。微波为何能够全天候全天时获取数据？</h3>
+<p>1)．瑞利散射 Rayleigh scattering</p>
+<p>当大气中粒子的直径比波长小得多时发生的散射     （如氮、二氧化碳，臭氧和氧分子  ）<br>
+对可见光而言，瑞利散射现象非常明显，因为这种散射的特点是散射强度与<br>
+波长的四次方成反比，即波长越长，散射越弱。——蓝色晴空</p>
+<p>2)．米氏散射 Mie scattering</p>
+<pre><code>（1）当大气中粒子的直径与辐射的波长相当时发生的散射
+（2） 这种散射主要由大气中的微粒，如烟、尘埃、小水滴及气溶胶等引起。
+（3）米氏散射的散射强度与波长的二次方成反比
+（4）云雾的粒子大小与红外波长(o．76—15um)接近，所以云雾对红外线的
+散射主要是米氏散射。
+潮湿天气米氏散射影响较大。
+</code></pre>
+<p>3)．无选择性散射 non-selective scattering</p>
+<p>当大气中粒子的直径比波长大得多时发生的散射。</p>
+<p>这种散射的特点是散射强度与波长无关，也就是说，在符合无选择性散射的<br>
+条件的波段中，任何波长的散射强度相同。如：云雾中水滴的粒子直径就比可见<br>
+光波段波长大很多——云雾呈白色</p>
+<p>微波为何能够全天候全天时获取数据：对微波来说，微波波长比粒子的直径<br>
+大得多，则又属于瑞利散射的类型，散射强度与波长四次方成反比，波长越长散<br>
+射强度越小，所以微波才可能有最小散射，最大透射，而被称为具有穿云透雾的<br>
+能力。</p>
+<h3 id="大气校正的概念-理解掌握大气粗校正的概念直方图最小值法的基本原理与方法"><a class="markdownIt-Anchor" href="#大气校正的概念-理解掌握大气粗校正的概念直方图最小值法的基本原理与方法"></a> 大气校正的概念。理解掌握大气粗校正的概念，直方图最小值法的基本原理与方法。</h3>
+<p>消除由大气散射引起的辐射误差的处理过程称为大气校正。</p>
+<p>大气粗校正：通过比较简便的方法去掉程辐射度（Lp），从而改善图像质量。</p>
+<p>程辐射也称路径辐射，指太阳辐射在传输过程中，大气中的各组分及气溶胶微粒散射后直接到达传感器的辐射，即传感器接收的来自大气散射部分的电磁波辐射。程辐射增加了到达传感器的辐射能，但与所探测的地面信息无关。</p>
+<p>一般来说由于程辐射度主要来自瑞利散射和米氏散射（尘埃、小水滴及气溶胶等影响），其散射强度随波长的增大而减小，到红外波段也有可能接近于零。</p>
+<p>程辐射(Path Radiance)在同一幅图像的有限面积内是一个常数，其值的大小只与波<br>
+段有关。</p>
+<h3 id="直方图最小值法暗像元法"><a class="markdownIt-Anchor" href="#直方图最小值法暗像元法"></a> 直方图最小值法(暗像元法)：</h3>
+<p>首先确定该图像上确有辐射亮度或反射亮度应为零的地区，则亮度最小值必<br>
+定是这一地区大气影响的程辐射度增值。<br>
+校正时，将每一波段中每个像元的亮度值都减去本波段的最小值</p>
+<p>例如，地形起伏地区山的阴影处，反射率极低的深海水体处等，这时在图像中对应位置的像元亮度值应为0。实测表明，这些位置上的像元亮度不为零。这个值就应该是大气散射导致的程辐射度值。</p>
+<p>经验线大气精校正方法，对已知数据的要求。与粗校正结果的差异。</p>
+<p>DN = kr + b</p>
+<p>经验线法对定标点有如下要求：</p>
+<pre><code>（1） 要选择尽可能各向同性的均一地物，且面积足够大。
+（2） 地物在光谱上要跨越尽可能宽的反射光谱波段，明暗目标之间要有足够的
+差异。
+（3） 要尽可能地与研究区域保持同一海拔高度。
+</code></pre>
+<p>精校正结果更好，粗校正只考虑了程辐射（b）。</p>
+<h3 id="图像几何误差的主要来源"><a class="markdownIt-Anchor" href="#图像几何误差的主要来源"></a> 图像几何误差的主要来源</h3>
+<p>遥感平台位置和运动状态变化的影响；<br>
+地形起伏的影响；<br>
+地球表面曲率的影响；<br>
+大气折射的影响；<br>
+地球自转的影响。</p>
+<h3 id="几何精校正的基本原理和操作步骤"><a class="markdownIt-Anchor" href="#几何精校正的基本原理和操作步骤"></a> 几何精校正的基本原理和操作步骤</h3>
+<p>校正前的图像，由于某种几何畸变，图像中像元点间所对应的地面距离并不相等。<br>
+校正后的图像是由等间距的网格点组成的，且以地面为标准，符合某种投影的均匀分布，图像中格网的交点可以看作是像元的中心；</p>
+<p>几何精校正的基本原理是回避成像的空间几何过程，直接利用地面控制点数 据对遥感图像的几何畸变本身进行数学模拟，并且认为遥感图像的总体畸变可以 看作是挤压、扭曲、缩放、偏移以及更高次的基本变形综合作用的结果。</p>
+<p>操作步骤：准备工作、输入原始数字图像、确定工作范围、选择地面控制点、 选择地图投影、匹配地面控制点和像素位置、评估纠正精度、坐标变换、重采样、 输出纠正后图像。</p>
+<h3 id="为何要对遥感图像进行几何精校正图像几何校正的方案有哪些几何校正控制点来源有哪些方法"><a class="markdownIt-Anchor" href="#为何要对遥感图像进行几何精校正图像几何校正的方案有哪些几何校正控制点来源有哪些方法"></a> 为何要对遥感图像进行几何精校正？图像几何校正的方案有哪些？几何校正控制点来源有哪些方法？</h3>
+<p>为何？<br>
+（1）遥感调查分析结果：一般是要求能满足量测和定位要求的各类专题地图。<br>
+（2）利用多源数据进行计算机自动分类、地物特征的变化监测等应用处理时，<br>
+必须保证不同图像间的几何一致性。<br>
+（3）利用遥感图像进行地形图测图或更新，也是遥感的致力方向之一，它对遥<br>
+感图像的几何纠正提出了更严格的要求。</p>
+<p>几何校正的纠正变换方案有：直接法（正算）和间接法（反算），一般采用<br>
+间接法。</p>
+<p>控制点来源：大比例尺地形图，遥感图像（如航空像片），GPS 测量获取的控<br>
+制点坐标。</p>
+<p>几何精校正对控制点的要求（数量和位置）。</p>
+<p>（1）数目确定</p>
+<p>控制点数目的最低限是按未知系数的多少来确定的。</p>
+<p>n次多项式，控制点的最少数目为(n十1)(n十2)／2。       2-6      3-10</p>
+<p>实际工作中，在条件允许的情况下，控制点数的选取都要大于最低数很多，一般要20-25</p>
+<p>（2）选取原则<br>
+控制点的选择要以配准对象为依据。以地面坐标为匹配标准的，叫做地面控制点。有时也用地图作地面控制点标准，或用遥感图像(如用航空像片)作为控制点标准。无论用哪一种坐标系，关键在于建立待匹配的两种坐标系的对应点关系。</p>
+<pre><code>    控制点应选取图像上易分辨且较精细的特征点，通过目视方法辨别．       交叉点、河流弯曲或分叉处、海岸线弯曲处、湖泊边缘、飞机场、城廓边缘等。
+   特征变化大的地区应多选些。
+   图像边缘部分一定要选取控制点，以避免外推。
+   尽可能满幅均匀选取，特征实在不明显的大面积区域(如沙漠)，可用求延长线交点的办法来弥补，但应尽可能避免这样做．
+</code></pre>
+<h3 id="什么是像素图像重采样像素图像重采样的方法有哪些它们各有何特点"><a class="markdownIt-Anchor" href="#什么是像素图像重采样像素图像重采样的方法有哪些它们各有何特点"></a> 什么是像素（图像重采样）？像素（图像）重采样的方法有哪些？它们各有何特点？</h3>
+<p>待纠正的数字图像本身属于规则的离散采样，非采样点上的灰度值需要通过采样点（已知像素）内插来获取，即重采样。</p>
+<ol>
+<li>最邻近点法重采样：<br>
+特点： 方法简单易用，计算量小，在几何位置上精度为0．5像元，但处理后图像的亮度具有不连续性，从而影响了精确度。</li>
+</ol>
+<p>2)双线性内插法重采样<br>
+特点：图像亮度连续，几何上较精确，但具有低通滤波的性质，使图像变得模糊。</p>
+<ol start="3">
+<li>三次卷积内插法<br>
+特点：图像亮度连续，几何精度高，较好的保留高频部分。  但计算量大。</li>
+</ol>
+<h2 id="第四章"><a class="markdownIt-Anchor" href="#第四章"></a> 第四章</h2>
+<h3 id="为什么要进行彩色合成有哪些主要的合成方法"><a class="markdownIt-Anchor" href="#为什么要进行彩色合成有哪些主要的合成方法"></a> 为什么要进行彩色合成？有哪些主要的合成方法？</h3>
+<p>人眼对黑白密度的分辨能力有限，而对彩色图像的分辨能力则要高得多。通<br>
+过对多波段图像进行彩色合成，可以充分利用色彩在遥感图像判读中的优势。</p>
+<p>真彩色</p>
+<pre><code>R —— R    G —— G   B —— B
+假彩色
+R ——NIR； G ——R； B ——G
+Simulate Natural Color Composition 模拟真彩色
+R ——短波红外波段； G ——近红外波段； B ——红色波段 
+</code></pre>
+<h3 id="图像拉伸有哪些方法"><a class="markdownIt-Anchor" href="#图像拉伸有哪些方法"></a> 图像拉伸有哪些方法？</h3>
+<p>1）灰度拉伸：线性拉伸、非线性拉伸、多波段拉伸。</p>
+<p>2）直方图均衡化</p>
+<p>3）直方图规定化</p>
+<h3 id="什么是直方图规定化其主要作用和应用什么"><a class="markdownIt-Anchor" href="#什么是直方图规定化其主要作用和应用什么"></a> 什么是直方图规定化？其主要作用和应用什么？</h3>
+<p>直方图规定化，或直方图匹配，就是将原始图像的直方图调整到一事先规定<br>
+或参考图像的直方图形状(如正态分布)，并以此来对原始图像的特定灰度范围进<br>
+行增强处理，使两幅图像的亮度变化规律尽可能相似。</p>
+<p>直方图规定化的作用：使原始图像具有特定的直方图的图像，以便能够对图<br>
+像中的某些灰度级加以增强。</p>
+<p>应用：常用于遥感图像的镶嵌及遥感应用（如动态变化监测）的图像预处理<br>
+中，直方图匹配可以部分消除太阳高度角和大气影响造成的相邻图像的色调差异。<br>
+另外，也可以匹配到指定的直方图形状。</p>
+<h3 id="什么是直方图均衡化-其主要作用是什么"><a class="markdownIt-Anchor" href="#什么是直方图均衡化-其主要作用是什么"></a> 什么是直方图均衡化？ 其主要作用是什么？</h3>
+<p>直方图均衡化是使变换后图像灰度值的概率密度为均匀分布的映射变换方<br>
+法，概率密度函数曲线变为一条平坦的直线。<br>
+通过直方图均衡化，直方图上灰度分布较密的部分被拉伸，灰度分布稀疏的<br>
+部分被压缩，使图像对比度在总体上得到增强,突出了细节信息。</p>
+<h2 id="第三章-遥感数字图像的表示和统计描述"><a class="markdownIt-Anchor" href="#第三章-遥感数字图像的表示和统计描述"></a> 第三章 遥感数字图像的表示和统计描述</h2>
+<h3 id="遥感数字图像的概念"><a class="markdownIt-Anchor" href="#遥感数字图像的概念"></a> 遥感数字图像的概念</h3>
+<p>遥感图像------通过检测和度量地物的电磁波辐射能所得到的图像。</p>
+<p>遥感数字图像是以数字形式表示的遥感影像。<br>
+遥感数字图像最基本的单位是像素。像素是成像过程中的采样点，也是计算机图像处理的最小单元。</p>
+<p>遥感数字图像是以数字形式记录的二维遥感信息，即其内容是通过遥感手段获得的，通常是地物不同波段的电磁波谱信息。</p>
+<p>其中的像素值称为亮度值（或称为灰度值、DN值）</p>
+<p>理解遥感图像模型及字符的含义</p>
+<pre><code>L(x,y；t，λ，p)=[1 - β * (x, y；t，λ，p）] * E(λ) + β(x,y； t，λ，p) * I  (x, y；t，λ）
+
+β(x,y；t，λ，p）为目标的波谱反射率 ，
+E(λ)是黑体的波谱发射本领 ，
+I(x,y；t，λ）为目标上的波谱辐照度， 
+p表示极化(偏振)方向， 
+λ波长 ,t为摄像时间，
+</code></pre>
+<p>对可见光、近红外波段：  只考虑吸收<br>
+L(x,y；t，λ)=β(x,y； t，λ) ×I(x,y；t，λ）</p>
+<p>对热红外波段，反射和发射都需要考虑，同时，摄像时间是一个重要因素，夜晚摄取的主要是地物的热发射；白天的反射部分处于不同的波段，一般是通过设计不同的传感探测器以获取不同的图像。</p>
+<p>对某一幅图像：t，λ，p为常数，此时遥感图像函数：<br>
+以 f(x，y) 代替 L(x,y；t，λ，p)<br>
+f(x,y)=β(x,y)×I(x,y）</p>
+<h3 id="遥感图像的单波段-多波段统计特征有哪些各有何作用特别是图像灰度方差的概念-多波段间的相关系数的概念-特征向量矩阵在主成分分析中应用的概念"><a class="markdownIt-Anchor" href="#遥感图像的单波段-多波段统计特征有哪些各有何作用特别是图像灰度方差的概念-多波段间的相关系数的概念-特征向量矩阵在主成分分析中应用的概念"></a> 遥感图像的（单波段、多波段）统计特征有哪些？各有何作用？特别是图像灰度方差的概念、多波段间的相关系数的概念、特征向量矩阵在主成分分析中应用的概念。</h3>
+<p>图像灰度均值</p>
+<p>图像灰度中值</p>
+<p>图像灰度众数：图像中出现最多次数的灰度值，它是一幅图像中分布较广的地物类型反射能量的反映。</p>
+<p>图像灰度方差：  方差反映各像元灰度值与图像平均灰度值的总的离散程度。它是衡量一幅图像信息量大小的重要度量，是图像统计分析中的最重要的统计量</p>
+<p>图像灰度数值域<br>
+它反映了图像灰度值的变化程度，从而间接地反映了图像的信息量。</p>
+<p>图像灰度反差  反差可以反映图像的显示效果和可分辨性</p>
+<p>图像的直方图<br>
+直方图是图像灰度分布的直观描述，能够反映图像的信息量及分布特征。<br>
+在遥感数字图像处理中，可用通过修改图像的直方图来增强图像中的目标信息。</p>
+<p>多波段间的统计特征<br>
+遥感图像处理往往是多波段数据的处理，处理中不仅要考虑单个波段图像的统计特征，也要考虑波段间存在的关联。</p>
+<p>协方差</p>
+<p>相关系数:相关系数是描述波段图像间的相关程度的统计量，反映了两个波段图像所包含信息的重叠程度。</p>
+<p>特征向量矩阵S，由矩阵A的所有线性无关的特征向量按列排列组成的矩阵。</p>
+<p>通常经过特征向量变换下的数据被称为变量的主成分，当前m个主成分累计的方差贡献率达到一个较高的百分数（如85%以上）的话，就保留着这m个主成分的数据。实现了对数据进行降维的目的。整个主成分分析的算法原理也就是这个。</p>
+<p>掌握灰度共生矩阵的统计计算方法，图像纹理计算思路。</p>
+<p>灰度共生矩阵：<br>
+又称为灰度联合概率矩阵法，它表达了图像中某像元与其周边相邻像元间灰度的空间相关性。 （详见书p60）</p>
+<h3 id="图像纹理的计算思路"><a class="markdownIt-Anchor" href="#图像纹理的计算思路"></a> 图像纹理的计算思路</h3>
+<p>统计方法：利用图像的统计特征求出特征值，实现对纹理的描述。主要包括自相关系数，灰度共生矩阵，灰度级行程长等等</p>
+<p>结构方法：纹理由一系列纹理基元有规律的排列组成，且纹理基元可以分离出来。结构方法力图找到纹理基元，并以基元的特征和其排列规则作为纹理描述的特征进行纹理分割，一般只用于规则性较强的人工纹理</p>
+<h3 id="卷积计算方法"><a class="markdownIt-Anchor" href="#卷积计算方法"></a> 卷积计算方法。</h3>
+<ol>
+<li>从图像左上角开始开一与模板同样大小的活动窗口，图像窗口与模板像<br>
+元的亮度值对应相乘再相加。</li>
+<li>将计算结果 r(i，J)放在窗口中心的像元位置，成为新像元的灰度值。</li>
+<li>然后活动窗口向右移动一个像元，做同样的运算，仍旧把计算结果放在<br>
+移动后的窗口中心位置上。</li>
+<li>依次进行，逐行扫描，直到全幅图像扫描一遍结束，则新图像生成。</li>
+</ol>
+<h2 id="第2章"><a class="markdownIt-Anchor" href="#第2章"></a> 第2章</h2>
+<h3 id="电磁波谱的概念-大气窗口的概念"><a class="markdownIt-Anchor" href="#电磁波谱的概念-大气窗口的概念"></a> 电磁波谱的概念、大气窗口的概念</h3>
+<p>按电磁波在真空中传播的波长或频率，递增或递减排列，则构成了电磁波谱。<br>
+电磁波通过大气层较少被反射、吸收和散射，而那些透射率高的波段称为大气窗口。</p>
+<p>遥感技术应用的主要波谱段波长范围？掌握常用波段的主要作用。</p>
+<pre><code>蓝色 450-500nm 水体 土地利用 植被 泥沙
+绿色 500-600 健康植被
+红色 600-700 叶绿素吸收的植被判别
+全色 500-750 制图 土地利用 立体相片
+反射红外  750-900 生物量 作物判别 土壤和作物 陆地和水域的边界
+中红外 1500-1750 植物 干旱 云 雪和冰的识别
+中红外 2000-2350 地质学应用 岩石
+热红外 10000-12500 相对温度 植被分类 汗水连研究
+微波-短波 积雪 雪深 植物含水量
+微博-长波 融雪 土壤含水量 水域和陆地边界
+</code></pre>
+<h3 id="作图并理解植被-水体-土壤等地物的光谱特征"><a class="markdownIt-Anchor" href="#作图并理解植被-水体-土壤等地物的光谱特征"></a> 作图并理解植被、水体、土壤等地物的光谱特征</h3>
+<p>植被   0.76（54）  1.4   1.9 2.7</p>
+<p>1）对绿光（0.55）有一小的反射峰值，反射率大致为20%，这是绿色植物呈现绿色<br>
+的原因。注意这里也正是太阳光的光能峰值。<br>
+2）在红光处（0.68）有一吸收谷，这是光合作用吸收谷。注意此处太阳光能仍很大，若吸收谷减小，则植被发黄、红。3）在0.7<sub>1.4与1.5</sub>1.9有很高红外反射峰，反射率可高达70%以上，这两峰与前边红光波谷是植被光谱的特征。这第一峰波长段还处在太阳光能波谱中主要能量分布区<br>
+（0.2~1.4）占有全部太阳光能量90.8%，这是遥感识别植被并判断植被状态的主要依<br>
+据。<br>
+4）在1.45至1.95<br>
+有两处吸收谷，表明植被中水分含量。5）不同种类植物反射光谱曲线的变化趋势相同，而植物与其它地物的反射光谱曲线显著不同，这是遥感可以估测生物量的基础。<br>
+6）植物叶片重叠时，反射光能量在可见光部分几乎不变，而在红外却可增加20~40%。这是因为红外光可透过叶片，又经下层叶片重复反射。叶片重叠反映作物长势旺盛，生物量高。<br>
+7)植物叶片可见光区反射率有显著的方向性，这是因为植物叶片反射（散射）不是纯粹的朗伯散射，还有方向性。而在红外区方向性就不显著，这是因为红外光透射性好，透射后重复反射打扰了方向性。</p>
+<p>水体</p>
+<p>水体的反射主要在蓝绿光波段,其他波段吸收率很强，特别在近红外、中红外波段有很强的吸收带，反射率几乎为零。水的光谱特征主要是由水本身的物质组成决定,</p>
+<p>土壤</p>
+<p>自然状态下土壤表面的反射率没有明显的峰值和谷值.土壤的反射光谱特征主要受到土壤中的原生矿物和次生矿物、土壤水分含量、土壤有机质、铁含量、土壤质地等因素的影响</p>
+<h3 id="研究地物光谱特征的意义"><a class="markdownIt-Anchor" href="#研究地物光谱特征的意义"></a> 研究地物光谱特征的意义？</h3>
+<p>研究地物光谱特征的意义：<br>
+只有充分掌握遥感对象的光谱特性，才能一方面为传感器设计提供最佳波段选择(所谓最佳波段，就是最能识别或区分所感兴趣地物的波长范围)，同时，能为遥感图像解译和计算机自动识别分类提供依据。</p>
+<h3 id="何为地物光谱特征的时间效应和空间效应遥感图像的同物异谱及同谱异物现象"><a class="markdownIt-Anchor" href="#何为地物光谱特征的时间效应和空间效应遥感图像的同物异谱及同谱异物现象"></a> 何为地物光谱特征的时间效应和空间效应？遥感图像的同物异谱及同谱异物现象。</h3>
+<p>时间效应是指同一地点的相同地物，其光谱特征会随时间而产生一定的变化， 这种由于时间推移而导致的地物电磁波谱特征的变化，称为地物波谱的时间效应。</p>
+<p>空间效应是指在同一时刻，同一类地物由于其所处的地理位置不同，其光谱 特征可能存在一定的差异，这种由于空间位置不同而导致同类地物之间波谱特征 的变化，叫做地物光谱特征的空间效应。</p>
+<p>时间效应和空间效应通常会引起遥感数据的同物异谱、同谱异物的现象 。</p>
+<p>同物异谱：在相同的地物上，由于周围环境、病虫害或者放射性物质等影响，造成的相同的物种但是其光谱曲线不同。<br>
+同谱异物：在某一谱段区，两个不同地物可能会呈现相同的谱线特征。</p>
+<h3 id="传感器的辐射分辨率-光谱分辨率-空间分辨率-时间分辨率的定义"><a class="markdownIt-Anchor" href="#传感器的辐射分辨率-光谱分辨率-空间分辨率-时间分辨率的定义"></a> 传感器的辐射分辨率、光谱分辨率、空间分辨率、时间分辨率的定义。</h3>
+<p>辐射分辨率是指传感器接收波谱信号时，能分辨的最小辐射度差。在遥感图<br>
+像上表现为每一像元的辐射量化级。</p>
+<p>光谱分辨率：指传感器在接收目标辐射的波谱时能分辨的最小波长间隔。间<br>
+隔愈小，分辨率愈高。</p>
+<p>遥感图像的空间分辨率（Spatial resolution）：指像素所代表的地面范围的大<br>
+小，即扫描仪的瞬时视场、遥感器探测单元的大小或地面物体能分辨的最小单元。</p>
+<p>时间分辨率——指传感器对同一地点进行遥感采样的时间间隔，即采样的时<br>
+间频率，也称重访周期。</p>
+<h3 id="遥感图像的空间分辨率与地图比例尺的关系"><a class="markdownIt-Anchor" href="#遥感图像的空间分辨率与地图比例尺的关系"></a> 遥感图像的空间分辨率与地图比例尺的关系。</h3>
+<p>Suggested maximum scales of photographic products as a function of effective ground pixel size (based on 0.1 mm printed pixel)</p>
+<p>建议的摄影产品最大比例与有效地面像素大小的函数（基于0.1毫米打印像素）</p>
+<h3 id="遥感图像的类型有哪些常用数据格式有哪些"><a class="markdownIt-Anchor" href="#遥感图像的类型有哪些常用数据格式有哪些"></a> 遥感图像的类型有哪些？常用数据格式有哪些？</h3>
+<p>遥感图像类型有：主动遥感、被动遥感；多光谱、髙光谱；髙空间分辨率、</p>
+<p>低空间分辨率；航空、航天等遥感图像。</p>
+<p>常用数据格式有三种： BSQ（Band sequential）数据格式； BIP（Band<br>
+interleaved by pixel）数据格式； BIL（Band interleaved by line）数据格<br>
+式。</p>
+<h2 id="第一章"><a class="markdownIt-Anchor" href="#第一章"></a> 第一章</h2>
+<h3 id="1-遥感的定义"><a class="markdownIt-Anchor" href="#1-遥感的定义"></a> 1 .遥感的定义</h3>
+<p>是一种应用探测仪器远离目标，从远处把目标的电磁波特征记录下来，通过非直接接触而感知、判定、测量并分析目标性质，其空间展布、类型及其数量的综合性探测技术。</p>
+<p>遥感的基本原理：对遥感图像数据的DN值或反射率的大小和变化规律的分析处理来有效地识别和研究地物类型。</p>
+<h3 id="1-遥感必须具备3个要素"><a class="markdownIt-Anchor" href="#1-遥感必须具备3个要素"></a> 1. 遥感必须具备3个要素</h3>
+<p>某一区域内的目标地物(object, area, or phenomenon ) 研究、分析目标的光谱特征</p>
+<p>数据获取：以专用设备(遥感器)接收、记录远方地物电磁波辐射(包括反射或地物自身发射)的信号，并将遥感器接收的电磁辐射信号形成图像；</p>
+<p>通过对图像的处理分析，不与之接触就可感知远方事物</p>
+<h3 id="3-遥感图象处理的流程与内容"><a class="markdownIt-Anchor" href="#3-遥感图象处理的流程与内容"></a> 3. 遥感图象处理的流程与内容。</h3>
+<p>图像增强  图像校正（对传感器或环境造成的图像退化进行矫正）  信息提取</p>
+<h3 id="4-遥感数字图像的概念"><a class="markdownIt-Anchor" href="#4-遥感数字图像的概念"></a> 4. 遥感数字图像的概念</h3>
+<p>遥感数字图像是以数字形式储存和表达的遥感图像</p>
+<h3 id="5-遥感数字图像处理在地理信息科学-自然资源与环境科学中的作用"><a class="markdownIt-Anchor" href="#5-遥感数字图像处理在地理信息科学-自然资源与环境科学中的作用"></a> 5. 遥感数字图像处理在地理信息科学、自然资源与环境科学中的作用</h3>
+<p>（1）对地球表面（土地利用、水体等）进行测量和制图，获得满足一定精度要求的各种图件。</p>
+<p>（2）快速准确地提取所需信息<br>
+目标物体的类型<br>
+不同目标物体的数量与质量<br>
+它们在时间和空间上的分布状况<br>
+研究它们的时空关系等</p>
+<p>遥感数字图像处理是重要的分析技术，遥感图像处理可快速为这些研究提供重要的数据源 ，且成本低。</p>
+<h2 id="英文翻译"><a class="markdownIt-Anchor" href="#英文翻译"></a> 英文翻译</h2>
+<p>遥感图像分类    Classification Techniques<br>
+图像滤波   Image Filter<br>
+空间域滤波（空间增强）Geometric Enhancement<br>
+卷积运算（convolution ).<br>
+频率域 (Spatial frequency)<br>
+图像平滑（Smoothing）<br>
+图像变换  Multispectral Transformations of Image Data<br>
+傅立叶变换 Fourier Transformation of Image Data<br>
+主成分分析    The Principal Components Transformation<br>
+缨帽变换    The Kauth-Thomas Tasseled Cap Transformation<br>
+遥感数字图像处理  Remote Sensing Image Processing<br>
+电磁波谱（Electromagnetic spectrum）<br>
+遥感数字图像的获取和存储   Remote sensing data acquisition and storage</p>
+<p>Remote sensing relies on the measurement of electromagnetic (EM) energy. EM energy can take several forms.<br>
+The most important source of EM energy at the Earth’s surface is the Sun,  which provides us, for example, with (visible) light, heat (that we can feel) and UV-light.</p>
+<p>遥感（Remote sensing）<br>
+遥感的应用 （Application of remote sensing）<br>
+遥感数字图像处理的内容 （Contents of remote sensing）<br>
+目标地物(object, area, or phenomenon )<br>
+数据获取（sensor, interaction between electromagnetic energy and matter, Images）<br>
+图像的处理分析（analysis of data, interpret the images or numerical values.）<br>
+多光谱与髙光谱遥感（Multispectral and Hyperspectral Remote Sensing）<br>
+遥感数字图像的获取和存储（Remote sensing data acquisition and storage）<br>
+电磁波谱 （Electromagnetic spectrum）<br>
+大气窗口（Atmospheric transmission windows）<br>
+遥感数字图像的表示和统计描述（Remote Sensing Image function and Statistics ）<br>
+图像的直方图（The Image Histogram）<br>
+图像拉伸（Image Stretching）<br>
+直方图均衡化（Histogram Equalization）<br>
+图像校正（ Error Correction and Registration of Image Data）<br>
+辐射误差（Radiometric distoration ）<br>
+图像变换（Multispectral Transformations of Image Data）<br>
+主成分分析（The Principal Components Transformation）<br>
+图像滤波 （Image Filter）<br>
+遥感图像分类（Classification Techniques）<br>
+大气校正（Atmospheric correction）<br>
+几何校正（Geometric Correction）</p>
+<p>Remote sensing is the science of acquiring, processing and interpreting images<br>
+that record the interaction between electromagnetic energy and mater.</p>
+<p>译：遥感是一门获取、处理和解释记录了电磁波与地物之间相互作用的遥感图像<br>
+的科学。</p>
+<p>Remote sensing is the science and art of obtaining information about an object,<br>
+area, or phenomenon through the analysis of data acquired by a device that is not in<br>
+contact with the object, area, or phenomenon under investigation.</p>
+<p>译：遥感是一门获取目标地物信息的科学技术，它通过对非直接接触的设备获取<br>
+的数据进行分析，得到有关地物的相关信息。</p>
+<p>Although remote sensing data can be interpreted and processed without other<br>
+information, the best results are obtained by linking remote sensing measurements to<br>
+ground (or surface) measurements and observations.</p>
+<p>译：尽管无需其他信息也可解释和处理遥感数据，但将遥感测量值与地面（或地<br>
+表）测量值和观测值联系起来可获得最佳结果</p>
+<p>Remote sensing、Application of remote sensing、Contents of remote sensing、object, area, or phenomenon 、sensor, interaction between electromagnetic energy and matter,Images、analysis of data, interpret the images or numerical values、Multispectral and<br>
+Hyperspectral Remote Sensing 、 Remote sensing data acquisition and storage、<br>
+Electromagnetic spectrum、Atmospheric transmission windows、Remote Sensing<br>
+Image function and Statistics 、The Image Histogram、Image Stretching、Histogram<br>
+Equalization 、 Error Correction and Registration of Image Data 、 Radiometric<br>
+distoration 、Multispectral Transformations of Image Data、The Principal Components<br>
+Transformation、Image Filter、Classification Techniques、Atmospheric correction、<br>
+Geometric Correction</p>
+<p>Remote sensing is the science of acquiring, processing and interpreting images that record the interaction between electromagnetic energy and mater.</p>
+<p>Remote sensing is the science and art of obtaining information about an object, area, or phenomenon through the analysis of data acquired by a device that is not in contact with the object, area, or phenomenon under investigation.</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/DDBY%20-%20%E9%9D%92%E3%81%84%E7%A9%BA%E3%80%81%E7%99%BD%E3%81%84%E9%9B%B2%E3%80%82%E6%B5%81%E3%82%8C%E3%82%8B%E9%A2%A8%E3%81%8C%E5%BF%83%E5%9C%B0%E8%89%AF%E3%81%8F.mp3'></li>
+                    
+                        <li title='1' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/DDBY%20-%20Starry%20Memories.mp3'></li>
+                    
+                        <li title='2' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/DDBY%20-%20Starry%20Memories.mp3'></li>
+                    
+                        <li title='3' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/TAMUSIC%20-%20%E5%90%91%E3%81%93%E3%81%86%E4%BE%A7%E3%81%AE%E6%9C%88.mp3'></li>
+                    
+                        <li title='4' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/%E4%B8%8A%E6%B5%B7%E3%82%A2%E3%83%AA%E3%82%B9%E5%B9%BB%E6%A8%82%E5%9B%A3%20-%20%E5%90%91%E3%81%93%E3%81%86%E5%81%B4%E3%81%AE%E6%9C%88.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci='aa8bb51537465fdc96a8'
+        data-cs='42a5b0db726d5fd6dd5baef6f452c419ff2634a4'
+        data-r='antrovirens.github.io'
+        data-o='antrovirens'
+        data-a='antrovirens'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

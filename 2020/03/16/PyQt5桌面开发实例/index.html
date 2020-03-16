@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="简体中文" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PyQt5桌面开发实例 - Atrovirens&#39; Café</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Antrovirens,"> 
+    <meta name="description" content="
+
+
+P.S.  发现我啥时候把nodejs给卸掉了…
+ 设计
+已知坐标，计算AB两点间距离和方位角，输出结果
+ 工程
+设计ui - 编译ui - 编写函数与响应 - 打包exe
+ 代码
+ UI设计,"> 
+    <meta name="author" content="antrovirens"> 
+    <link rel="alternative" href="atom.xml" title="Atrovirens&#39; Café" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Atrovirens&#39; Café</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">PyQt5桌面开发实例</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">PyQt5桌面开发实例</h1>
+        <div class="stuff">
+            <span>三月 16, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/PyQt/">PyQt</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/桌面开发/">桌面开发</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <div align="center">
+<img src="https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/cloud/%E9%9C%B2%E7%B1%B3%E5%A8%85.png" alt="没存图了咋办呀">
+</div>
+<p>P.S.  发现我啥时候把nodejs给卸掉了…</p>
+<h2 id="设计"><a class="markdownIt-Anchor" href="#设计"></a> 设计</h2>
+<p>已知坐标，计算AB两点间距离和方位角，输出结果</p>
+<h2 id="工程"><a class="markdownIt-Anchor" href="#工程"></a> 工程</h2>
+<p>设计ui - 编译ui - 编写函数与响应 - 打包exe</p>
+<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
+<h3 id="ui设计"><a class="markdownIt-Anchor" href="#ui设计"></a> UI设计</h3>
+<p>一个menu，两个下拉单，</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">self.menu</span><br><span class="line">self.action_Open</span><br><span class="line">self.action_Save</span><br><span class="line">self.action_Close</span><br><span class="line">self.action_Quit</span><br><span class="line">self.menu_2</span><br><span class="line">self.action_Calculate</span><br></pre></td></tr></table></figure>
+<p>6个lineTextEdit用来输入和输出结果 ,1个plainTextEdit作为进程提示，1个graphicsView输出图形</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">self.lineEdit_XA</span><br><span class="line">self.lineEdit_XB</span><br><span class="line">self.lineEdit_YA</span><br><span class="line">self.lineEdit_YB</span><br><span class="line">self.lineEdit_Sab</span><br><span class="line">self.lineEdit_tab</span><br><span class="line">self.plainTextEdit</span><br><span class="line">self.graphicsView</span><br></pre></td></tr></table></figure>
+<h3 id="准备工作"><a class="markdownIt-Anchor" href="#准备工作"></a> 准备工作</h3>
+<p>测试数据文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1,2</span><br><span class="line">3,4</span><br></pre></td></tr></table></figure>
+<p>头文件</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> pi, atan, sqrt</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime <span class="comment">#输出时间</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">matplotlib.use(<span class="string">"Qt5Agg"</span>)  <span class="comment"># 声明使用QT5</span></span><br><span class="line"><span class="keyword">from</span> matplotlib.backends.backend_qt5agg <span class="keyword">import</span> FigureCanvasQTAgg <span class="keyword">as</span> FigureCanvas</span><br><span class="line"><span class="keyword">from</span> matplotlib.figure <span class="keyword">import</span> Figure</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> PyQt5.QtCore <span class="keyword">import</span> pyqtSlot</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtGui <span class="keyword">import</span> * <span class="comment">#这里懒得改了</span></span><br><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Ui_MainWindow <span class="keyword">import</span> Ui_MainWindow</span><br></pre></td></tr></table></figure>
+<p>主函数</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app = QApplication(sys.argv)</span><br><span class="line">    dlg = MainWindow()</span><br><span class="line">    dlg.show()</span><br><span class="line">    sys.exit(app.exec_())</span><br></pre></td></tr></table></figure>
+<h3 id="全局变量"><a class="markdownIt-Anchor" href="#全局变量"></a> 全局变量</h3>
+<p>初始化为float</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = [<span class="number">0.0</span>, <span class="number">0.0</span>]</span><br><span class="line">y = [<span class="number">0.0</span>, <span class="number">0.0</span>]</span><br><span class="line">Sab = <span class="number">0.0</span></span><br><span class="line">Tab = <span class="number">0.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="功能函数"><a class="markdownIt-Anchor" href="#功能函数"></a> 功能函数</h3>
+<p>计算方位角（高斯平面坐标系）</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Azimuth</span><span class="params">()</span>:</span></span><br><span class="line">    dx = x[<span class="number">1</span>] - x[<span class="number">0</span>]</span><br><span class="line">    dy = y[<span class="number">1</span>] - y[<span class="number">0</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> dx ==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">if</span> dy &gt;=<span class="number">0</span> :</span><br><span class="line">            a = pi/<span class="number">2</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            a = pi * <span class="number">3</span> / <span class="number">2</span></span><br><span class="line">    <span class="keyword">elif</span> dy ==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">if</span> dx &gt;= <span class="number">0</span>:</span><br><span class="line">            a=<span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            a = pi</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        a = atan(dy / dx)</span><br><span class="line">        <span class="keyword">if</span> dx &lt;= <span class="number">0</span>:</span><br><span class="line">            a = a + pi</span><br><span class="line">        <span class="keyword">elif</span> dy &lt;= <span class="number">0</span>:</span><br><span class="line">            a = a + <span class="number">2</span> * pi</span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure>
+<p>quit</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@pyqtSlot()</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_action_Quit_triggered</span><span class="params">(self)</span>:</span></span><br><span class="line">    self.close()</span><br></pre></td></tr></table></figure>
+<h3 id="读取文件"><a class="markdownIt-Anchor" href="#读取文件"></a> 读取文件</h3>
+<p>推荐用with as格式写</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line"><span class="meta">@pyqtSlot()</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_action_Open_triggered</span><span class="params">(self)</span>:</span></span><br><span class="line">    filename,_ = QFileDialog.getOpenFileName(self,  <span class="string">'输入坐标数据'</span>, <span class="string">'./'</span>,  <span class="string">'All Files (*);;Text Files (*.txt)'</span>);</span><br><span class="line">    <span class="keyword">if</span> filename == <span class="string">''</span>:</span><br><span class="line">        self.plainTextEdit.appendPlainText(<span class="string">'['</span> + str(datetime.now()) + <span class="string">']'</span> + <span class="string">'打开失败 返回值为空'</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    f=open(filename,<span class="string">'r'</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">    dic = []</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">        line=line.strip(<span class="string">'\n'</span>) <span class="comment">#去掉换行符\n</span></span><br><span class="line">        b=line.split(<span class="string">','</span>) <span class="comment">#将每一行以空格为分隔符转换成列表</span></span><br><span class="line">        dic.append(b)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    self.lineEdit_XA.setText(dic[<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line">    self.lineEdit_YA.setText(dic[<span class="number">0</span>][<span class="number">1</span>])</span><br><span class="line">    self.lineEdit_XB.setText(dic[<span class="number">1</span>][<span class="number">0</span>])</span><br><span class="line">    self.lineEdit_YB.setText(dic[<span class="number">1</span>][<span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    self.plainTextEdit.appendPlainText(<span class="string">'['</span> + str(datetime.now()) + <span class="string">']'</span> + <span class="string">'打开文件：'</span> + str(filename))</span><br><span class="line">    f.close()</span><br></pre></td></tr></table></figure>
+<h3 id="写入文件"><a class="markdownIt-Anchor" href="#写入文件"></a> 写入文件</h3>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@pyqtSlot()</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_action_Save_triggered</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Slot documentation goes here.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> 保存结果        </span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'输出结果.txt'</span>,<span class="string">'a'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(<span class="string">'['</span> + str(datetime.now()) + <span class="string">']'</span> + <span class="string">'\n'</span>)</span><br><span class="line">        f.write(<span class="string">'A:'</span>+str([x[<span class="number">0</span>], y[<span class="number">0</span>]]) + <span class="string">';B:'</span> + str([x[<span class="number">1</span>],y[<span class="number">1</span>]]) + <span class="string">'\n'</span>)</span><br><span class="line">        f.write(<span class="string">'Sab = '</span>+ str(Sab) + <span class="string">'; Tab = '</span> + str(Tab) + <span class="string">'\n'</span>)</span><br><span class="line">        f.write(<span class="string">'\n'</span>)</span><br><span class="line">    </span><br><span class="line">    self.plainTextEdit.appendPlainText(<span class="string">'['</span> + str(datetime.now()) + <span class="string">']'</span> + <span class="string">'保存成功'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="执行计算"><a class="markdownIt-Anchor" href="#执行计算"></a> 执行计算</h3>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># <span class="doctag">TODO:</span> 检查是否缺失条件， 进行计算， 绘制图形</span></span><br><span class="line">       </span><br><span class="line">       <span class="keyword">if</span> self.lineEdit_XA.text() == <span class="string">''</span> <span class="keyword">or</span> self.lineEdit_XB.text() == <span class="string">''</span> <span class="keyword">or</span> self.lineEdit_YA.text() == <span class="string">''</span> <span class="keyword">or</span> self.lineEdit_YB.text() == <span class="string">''</span>:   <span class="comment">#空的情况下，内容为‘’ (空白);不是None</span></span><br><span class="line">           self.plainTextEdit.appendPlainText(<span class="string">'['</span> + str(datetime.now()) + <span class="string">']'</span> + <span class="string">'中断：参数为空'</span>)</span><br><span class="line">           <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">           </span><br><span class="line">       XA = float(self.lineEdit_XA.text())</span><br><span class="line">       XB = float(self.lineEdit_XB.text())</span><br><span class="line">       YA = float(self.lineEdit_YA.text())</span><br><span class="line">       YB = float(self.lineEdit_YB.text())</span><br><span class="line">       </span><br><span class="line">       <span class="keyword">if</span> XA ==XB <span class="keyword">and</span> YA == YB:</span><br><span class="line">           self.plainTextEdit.appendPlainText(<span class="string">'['</span> + str(datetime.now()) + <span class="string">']'</span> + <span class="string">'中断：两点重合'</span>)</span><br><span class="line">           <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">       </span><br><span class="line">       <span class="keyword">global</span> x, y, Sab, Tab <span class="comment"># 给全局变量赋值</span></span><br><span class="line">       </span><br><span class="line">       x = [XA, XB]</span><br><span class="line">       y = [YA, YB]</span><br><span class="line">       </span><br><span class="line">       Sab = sqrt((XA - XB) * (XA - XB) + (YA - YB) * (YA - YB) )</span><br><span class="line">       Tab = Azimuth()</span><br><span class="line">       </span><br><span class="line">       self.lineEdit_Sab.setText(str(Sab))</span><br><span class="line">       self.lineEdit_tab.setText(str(Tab))</span><br><span class="line">       </span><br><span class="line">       self.plainTextEdit.appendPlainText(<span class="string">'['</span> + str(datetime.now()) + <span class="string">']'</span> + <span class="string">'计算完成：'</span> + <span class="string">'Sab = '</span>+ str(Sab) + <span class="string">'; Tab = '</span> + str(Tab))</span><br></pre></td></tr></table></figure>
+<h3 id="输出图形"><a class="markdownIt-Anchor" href="#输出图形"></a> 输出图形</h3>
+<p>这个还有点麻烦，参考的是这个人的代码（Matplotlib植入PyQt5 + QT5的UI呈现）：<a href="https://www.cnblogs.com/laoniubile/p/5904817.html" target="_blank" rel="noopener">https://www.cnblogs.com/laoniubile/p/5904817.html</a></p>
+<p>写了一个类来实现把figure给传递出去</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Figure_Canvas</span><span class="params">(FigureCanvas)</span>:</span>   <span class="comment"># 通过继承FigureCanvas类，使得该类既是一个PyQt5的Qwidget，又是一个matplotlib的FigureCanvas，这是连接pyqt5与matplot                                          lib的关键</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, parent=None, width=<span class="number">5.1</span>, height=<span class="number">4</span>, dpi=<span class="number">10</span>)</span>:</span></span><br><span class="line">        fig = Figure(figsize=(width, height), dpi=<span class="number">80</span>)  <span class="comment"># 创建一个Figure，注意：该Figure为matplotlib下的figure，不是matplotlib.pyplot下面的figure</span></span><br><span class="line"></span><br><span class="line">        FigureCanvas.__init__(self, fig) <span class="comment"># 初始化父类</span></span><br><span class="line">        self.setParent(parent)</span><br><span class="line"></span><br><span class="line">        self.axes = fig.add_subplot(<span class="number">111</span>) <span class="comment"># 调用figure下面的add_subplot方法，类似于matplotlib.pyplot下面的subplot方法</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">StartPlot</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.axes.set_xlabel(<span class="string">'Y'</span>)</span><br><span class="line">        self.axes.set_ylabel(<span class="string">'X'</span>)</span><br><span class="line"></span><br><span class="line">        self.axes.scatter(y[<span class="number">0</span>], x[<span class="number">0</span>], c= <span class="string">'red'</span>, marker=<span class="string">'o'</span>)</span><br><span class="line">        self.axes.scatter(y[<span class="number">1</span>], x[<span class="number">1</span>], c= <span class="string">'yellow'</span>)</span><br><span class="line">        self.axes.legend((<span class="string">'A'</span>, <span class="string">'B'</span>), loc=<span class="string">'best'</span>)</span><br><span class="line">        </span><br><span class="line">        self.axes.set_title(<span class="string">'Calculation Results'</span>,color = <span class="string">'blue'</span>)</span><br><span class="line">        </span><br><span class="line">        self.axes.plot(y, x, c= <span class="string">'blue'</span>, lw=<span class="number">0.5</span>)</span><br><span class="line">        </span><br><span class="line">        self.axes.annotate(<span class="string">'('</span> + str(x[<span class="number">0</span>]) + <span class="string">','</span> + str(y[<span class="number">0</span>]) + <span class="string">')'</span>,   xy=(y[<span class="number">0</span>], x[<span class="number">0</span>]), xytext=(<span class="number">-40</span>, <span class="number">6</span>), textcoords=<span class="string">'offset points'</span>, weight=<span class="string">'heavy'</span>)</span><br><span class="line">        self.axes.annotate(<span class="string">'('</span> + str(x[<span class="number">1</span>]) + <span class="string">','</span> + str(y[<span class="number">1</span>]) + <span class="string">')'</span>,   xy=(y[<span class="number">1</span>], x[<span class="number">1</span>]), xytext=(<span class="number">-40</span>, <span class="number">6</span>), textcoords=<span class="string">'offset points'</span>, weight=<span class="string">'heavy'</span>)</span><br><span class="line">        </span><br><span class="line">        t1 = (y[<span class="number">0</span>]+y[<span class="number">1</span>])/<span class="number">2</span></span><br><span class="line">        t2 = (x[<span class="number">0</span>]+x[<span class="number">1</span>])/<span class="number">2</span></span><br><span class="line">       </span><br><span class="line">        self.axes.annotate(<span class="string">'Sab = '</span>+ str(Sab) + <span class="string">'; Tab = '</span> + str(Tab),   xy=(t1, t2), xytext=(<span class="number">-80</span>, <span class="number">80</span>), textcoords=<span class="string">'offset points'</span>,  color = <span class="string">'blue'</span>,  arrowprops = dict( arrowstyle = <span class="string">'-&gt;'</span>, connectionstyle = <span class="string">'arc3'</span>, color = <span class="string">'b'</span>))</span><br></pre></td></tr></table></figure>
+<p>用QGraphicsScene来加载figure，然后在View显示</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">        ins = Figure_Canvas() <span class="comment">#实例化一个FigureCanvas</span></span><br><span class="line">        ins.StartPlot()  <span class="comment"># 画图</span></span><br><span class="line">        graphicscene = QGraphicsScene()  <span class="comment">#创建一个QGraphicsScene，因为加载的图形（FigureCanvas）不能直接放到graphicview控件中，必须先放到graphicScene，然后再把graphicscene放到graphicview中</span></span><br><span class="line">        graphicscene.addWidget(ins)  <span class="comment"># 把图形放到QGraphicsScene中，注意：图形是作为一个QWidget放到QGraphicsScene中的</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">#        graphicscene=graphicscene.scaled(self.graphicsView.width()-10,self.graphicsView.height()-10)</span></span><br><span class="line"><span class="comment">#        咋调大小暂时还没搞清楚</span></span><br><span class="line"></span><br><span class="line">        self.graphicsView.setScene(graphicscene) <span class="comment"># 把QGraphicsScene放入QGraphicsView</span></span><br><span class="line">        self.graphicsView.show()  <span class="comment"># 调用show呈现图形</span></span><br></pre></td></tr></table></figure>
+<h3 id="打包exe"><a class="markdownIt-Anchor" href="#打包exe"></a> 打包exe</h3>
+<p>贴一个upx win64的下载链接，我自己上传的，官网下载巨慢，把upx扔到scrips下面就会自动使用，有时候会缺一些奇怪的东西，咋解决还没搞明白：<a href="https://www.lanzous.com/iabcmxi" target="_blank" rel="noopener">https://www.lanzous.com/iabcmxi</a></p>
+<p>感觉写个程序自己用用就行了，打包交作业实属憨憨，，特么生成出来200m，怕不是把整个qt整进去了</p>
+<p>在文件夹里面按住shift右键,打开powershell，是个命令行就行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -F filename  <span class="comment">#生成单个exe文件，比较小   -D为生成dll文件和一个exe文件，整个文件夹巨几儿大</span></span><br></pre></td></tr></table></figure>
+<p>然后会多两文件夹和一个spec文件，build里面是生成的中间文件，dist里面是生成的程序文件，spec文件里面可以手动修改生成选项</p>
+<p>怎么优化可以看看这个文章（pyinstaller打包的exe太大？你需要嵌入式python玄学 拓展篇）：<a href="https://zhuanlan.zhihu.com/p/77317765" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/77317765</a></p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p>莫得总结</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/DDBY%20-%20%E9%9D%92%E3%81%84%E7%A9%BA%E3%80%81%E7%99%BD%E3%81%84%E9%9B%B2%E3%80%82%E6%B5%81%E3%82%8C%E3%82%8B%E9%A2%A8%E3%81%8C%E5%BF%83%E5%9C%B0%E8%89%AF%E3%81%8F.mp3'></li>
+                    
+                        <li title='1' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/DDBY%20-%20Starry%20Memories.mp3'></li>
+                    
+                        <li title='2' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/DDBY%20-%20Starry%20Memories.mp3'></li>
+                    
+                        <li title='3' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/TAMUSIC%20-%20%E5%90%91%E3%81%93%E3%81%86%E4%BE%A7%E3%81%AE%E6%9C%88.mp3'></li>
+                    
+                        <li title='4' data-url='https://antrovirens-1-1258258000.cos.ap-shanghai.myqcloud.com/%E4%B8%8A%E6%B5%B7%E3%82%A2%E3%83%AA%E3%82%B9%E5%B9%BB%E6%A8%82%E5%9B%A3%20-%20%E5%90%91%E3%81%93%E3%81%86%E5%81%B4%E3%81%AE%E6%9C%88.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci='aa8bb51537465fdc96a8'
+        data-cs='42a5b0db726d5fd6dd5baef6f452c419ff2634a4'
+        data-r='antrovirens.github.io'
+        data-o='antrovirens'
+        data-a='antrovirens'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
